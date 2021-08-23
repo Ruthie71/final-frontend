@@ -1,5 +1,5 @@
 const SoftSkillsKeyWords = () => {
-    return <div>Education</div>;
+    return <div>Soft skills key words</div>;
 };
 
 export default SoftSkillsKeyWords;

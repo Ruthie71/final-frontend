@@ -1,5 +1,5 @@
 const ProfileTextGenerator = () => {
-    return <div>Education</div>;
+    return <div>Profile Text Generator</div>;
 };
 
 export default ProfileTextGenerator;

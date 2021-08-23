@@ -1,5 +1,5 @@
 const WorkExperienceTextGenerator = () => {
-    return <div>Education</div>;
+    return <div>Work Experience Text Generator</div>;
 };
 
 export default WorkExperienceTextGenerator;
