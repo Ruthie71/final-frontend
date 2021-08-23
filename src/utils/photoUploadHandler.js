@@ -1,5 +1,5 @@
 const ImageUploadHandler = () => {
-    return <div>Education</div>;
+    return <div>Image Image UploadHandler</div>;
 };
 
 export default ImageUploadHandler;
