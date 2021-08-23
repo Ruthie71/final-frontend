@@ -1,5 +1,14 @@
+import TextGenerator from "./TextGenerator";
+import Keywords from "./Keywords";
+
 const Profile = () => {
-    return <div>Profile info</div>;
+    return (
+        <div>
+            ProfileInfo
+            <TextGenerator />
+            <Keywords />
+        </div>
+    );
 };
 
 export default Profile;
