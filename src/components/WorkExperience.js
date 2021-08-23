@@ -1,12 +1,12 @@
 import TextGenerator from "./TextGenerator";
-import Keywords from "./Keywords";
+import KeyWords from "./KeyWords";
 
 const Work = () => {
     return (
         <div>
             Work experience
             <TextGenerator />
-            <Keywords />
+            <KeyWords />
         </div>
     );
 };

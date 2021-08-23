@@ -1,10 +1,10 @@
-import Keywords from "./Keywords";
+import KeyWords from "./KeyWords";
 
 const Education = () => {
     return (
         <div>
             Education
-            <Keywords />
+            <KeyWords />
         </div>
     );
 };

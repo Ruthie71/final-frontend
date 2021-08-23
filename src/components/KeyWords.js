@@ -1,5 +1,5 @@
-const SoftSkillsKeyWords = () => {
-    return <div>Soft skills key words</div>;
+const KeyWords = () => {
+    return <div>Key words</div>;
 };
 
-export default SoftSkillsKeyWords;
+export default KeyWords;
