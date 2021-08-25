@@ -1,21 +1,37 @@
-import CreateProfile from "./CreateProfile";
-import LogIn from "./LogIn";
-import AccountSettings from "./AccountSettings";
-import Home from "./Home";
-import NotFound from "./NotFound";
-import ProfileInfo from "./Profile";
+import { Link, NavLink } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
 
 const Navigation = () => {
     return (
-        <div>
-            Navigation
-            <CreateProfile />
-            <LogIn />
-            <AccountSettings />
-            <Home />
-            <NotFound />
-            <ProfileInfo />
-        </div>
+        <Navbar bg="light" expand="lg">
+            <Container>
+                <Navbar.Brand as={Link} to="/">
+                    Logo
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="ms-auto">
+                        <Nav.Link as={NavLink} to="/" exact>
+                            Home
+                        </Nav.Link>
+                        <Nav.Link as={NavLink} to="/signUp">
+                            Sign up
+                        </Nav.Link>
+                        <Nav.Link as={NavLink} to="/logIn">
+                            Log in
+                        </Nav.Link>
+                        <Nav.Link as={NavLink} to="/accountSettings">
+                            Account settings
+                        </Nav.Link>
+                        <Nav.Link as={NavLink} to="/profile">
+                            Profile
+                        </Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     );
 };
 

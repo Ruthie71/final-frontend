@@ -1,5 +1,5 @@
 const AccountSettings = () => {
-    return <div>User contact info info</div>;
+    return <div>Account Settings</div>;
 };
 
 export default AccountSettings;

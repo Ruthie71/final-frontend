@@ -1,5 +1,5 @@
-const ProfileTextGenerator = () => {
+const TextGenerator = () => {
     return <div>Profile Text Generator</div>;
 };
 
-export default ProfileTextGenerator;
+export default TextGenerator;

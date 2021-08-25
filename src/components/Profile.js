@@ -1,15 +1,26 @@
-import TabSytem from "./TabSystem";
-import ProfileSide from "./ProfileSide";
+import TabSystem from "./TabSystem";
+import { Switch, Route } from "react-router-dom";
+import { Fragment } from "react";
 import ContactInfo from "./ContactInfo";
+import Education from "./Education";
+import WorkExperience from "./WorkExperience";
+import ProfileInfo from "./ProfileInfo";
+// import NotFound from "./NotFound";
 
-const Profile = () => {
+const Profile = ({ match }) => {
     return (
-        <div>
-            Profile info
-            <TabSytem />
-            <ContactInfo />
-            <ProfileSide />
-        </div>
+        <Fragment>
+            <TabSystem />
+            <Switch>
+                <Route path={"/profile/contactInfo"} component={ContactInfo} />
+                <Route path={"/profile/profileInfo"} component={ProfileInfo} />
+                <Route path={"/profile/education"} component={Education} />
+                <Route
+                    path={"/profile/workexperience"}
+                    component={WorkExperience}
+                />
+            </Switch>
+        </Fragment>
     );
 };
 

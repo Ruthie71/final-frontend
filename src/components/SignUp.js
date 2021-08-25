@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 
-const ContactInfo = () => {
+const SignUp = () => {
     return (
         <Fragment>
             <Container>
@@ -180,4 +180,4 @@ const ContactInfo = () => {
     );
 };
 
-export default ContactInfo;
+export default SignUp;
