@@ -9,12 +9,13 @@ const TabSystem = () => {
     return (
         <Fragment>
             <Nav variant="tabs" defaultActiveKey="profile/contactInfo">
-                <Nav.Link as={NavLink} to={"/profile/profileInfo"}>
-                    Profile info
-                </Nav.Link>
                 <Nav.Link as={NavLink} to={"/profile/contactInfo"}>
                     Contact info
                 </Nav.Link>
+                <Nav.Link as={NavLink} to={"/profile/profileInfo"}>
+                    Profile info
+                </Nav.Link>
+
                 <Nav.Link as={NavLink} to="/profile/education">
                     Education
                 </Nav.Link>

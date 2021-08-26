@@ -1,182 +1,136 @@
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { Redirect, useLocation } from "react-router-dom";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Fragment } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import { Container } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner";
+import { AuthContext } from "../context/AuthContext";
 
 const SignUp = () => {
+    const location = useLocation();
+    const { loading, isAuthenticated, error, signUp } = useContext(AuthContext);
+    const defaultValues = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+    };
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({ defaultValues });
+
+    const onSubmit = async (data) => await signUp(data);
+
+    if (isAuthenticated)
+        return (
+            <Redirect
+                to={{
+                    pathname: location.state ? location.state.next : "/",
+                    from: location.pathname,
+                }}
+            />
+        );
+    if (loading) return <Spinner animation="border" variant="primary" />;
     return (
-        <Fragment>
-            <Container>
-                <Col>
-                    <Form>
-                        <Row>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="firstName"
-                                >
-                                    <Form.Label>First Name</Form.Label>
-                                    <Form.Control
-                                        type="firstName"
-                                        placeholder="Enter name"
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="SecondName"
-                                >
-                                    <Form.Label>Second Name</Form.Label>
-                                    <Form.Control
-                                        type="secondName"
-                                        placeholder="Enter Second Name"
-                                    />
-                                </Form.Group>
-                            </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Form.Group className="mb-3" controlId="email">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control
-                                        type="email"
-                                        placeholder="Enter email"
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group className="mb-3" controlId="phone">
-                                    <Form.Label>Phone Number</Form.Label>
-                                    <Form.Control
-                                        type="phone"
-                                        placeholder="Enter Phone Number"
-                                    />
-                                </Form.Group>
-                            </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="houseNumber"
-                                >
-                                    <Form.Label>House Number</Form.Label>
-                                    <Form.Control
-                                        type="houseNumber"
-                                        placeholder="Enter House Number"
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="StreetName"
-                                >
-                                    <Form.Label>Street Name</Form.Label>
-                                    <Form.Control
-                                        type="streetName"
-                                        placeholder="Enter Street Name"
-                                    />
-                                </Form.Group>
-                            </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="zipCode"
-                                >
-                                    <Form.Label>Zip Code</Form.Label>
-                                    <Form.Control
-                                        type="zipCode"
-                                        placeholder="Enter Zip Code"
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group className="mb-3" controlId="city">
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control
-                                        type="phone"
-                                        placeholder="Enter City"
-                                    />
-                                </Form.Group>
-                            </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
-                        </Row>
-                        <Form.Group className="mb-3" controlId="country">
-                            <Form.Label>Country</Form.Label>
+        <Col md={4}>
+            <Row>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Row>
+                        {error && <Alert variant="danger">{error}</Alert>}
+                    </Row>
+                    <Row>
+                        <Form.Group className="mb-3" controlId="name">
+                            <Form.Label>First name</Form.Label>
                             <Form.Control
-                                type="country"
-                                placeholder="Enter Country"
+                                type="text"
+                                placeholder="First name"
+                                {...register("firstname", {
+                                    required: "First name is required",
+                                })}
                             />
+                            {errors.firstName && (
+                                <Alert variant="danger">
+                                    {errors.firstName.message}
+                                </Alert>
+                            )}
                         </Form.Group>
-
+                        <Form.Group className="mb-3" controlId="name">
+                            <Form.Label>Last name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Last name"
+                                {...register("lastname", {
+                                    required: "Last name is required",
+                                })}
+                            />
+                            {errors.lastName && (
+                                <Alert variant="danger">
+                                    {errors.lastName.message}
+                                </Alert>
+                            )}
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                type="email"
+                                placeholder="Email"
+                                {...register("email", {
+                                    required: "Email is required",
+                                })}
+                            />
+                            {errors.email && (
+                                <Alert variant="danger">
+                                    {errors.email.message}
+                                </Alert>
+                            )}
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                                type="password"
+                                placeholder="Password"
+                                {...register("password", {
+                                    required: "Password is required",
+                                })}
+                            />
+                            {errors.password && (
+                                <Alert variant="danger">
+                                    {errors.password.message}
+                                </Alert>
+                            )}
+                        </Form.Group>
                         <Form.Group
                             className="mb-3"
-                            controlId="formBasicCheckbox"
-                        ></Form.Group>
-                        <Row>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="password"
-                                >
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        placeholder="Enter Password"
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="confirmPassword"
-                                >
-                                    <Form.Label>Confirm Password</Form.Label>
-                                    <Form.Control
-                                        type="confirmPassword"
-                                        placeholder="Re-enter Password"
-                                    />
-                                </Form.Group>
-                            </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
-                        </Row>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </Col>
-            </Container>
-        </Fragment>
+                            controlId="passwordConfirm"
+                        >
+                            <Form.Label>Confirm password</Form.Label>
+                            <Form.Control
+                                type="password"
+                                placeholder="Confirm your password"
+                                {...register("passwordConfirm", {
+                                    required:
+                                        "Confirming your password is required",
+                                })}
+                            />
+                            {errors.passwordConfirm && (
+                                <Alert variant="danger">
+                                    {errors.passwordConfirm.message}
+                                </Alert>
+                            )}
+                        </Form.Group>
+                    </Row>
+                    <Button variant="primary" type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </Row>
+        </Col>
     );
 };
 

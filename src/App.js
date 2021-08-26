@@ -11,31 +11,31 @@ import ContactInfo from "./components/ContactInfo";
 import ProfileInfo from "./components/ProfileInfo";
 import Education from "./components/Education";
 import WorkExperience from "./components/WorkExperience";
+import AuthState from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
     return (
         <Fragment>
-            <Navigation />
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/newcontactinfo" component={ContactInfo} />
-                <Route path="/editcontactinfo" component={ContactInfo} />
-                <Route path="/newprofileinfo" component={ProfileInfo} />
-                <Route path="/editprofileinfo" component={ProfileInfo} />
-                <Route path="/neweducation" component={Education} />
-                <Route path="/editeducation" component={Education} />
-                <Route path="/newworkexperience" component={WorkExperience} />
-                <Route path="/editworkexperience" component={WorkExperience} />
-                <Route exact path="/signup" component={SignUp} />
-                <Route exact path="/login" component={LogIn} />
-                <Route
-                    exact
-                    path="/accountsettings"
-                    component={AccountSettings}
-                />
-                <Route path="*" component={NotFound} />
-            </Switch>
+            <AuthState>
+                <Navigation />
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <ProtectedRoute path="/profile" component={Profile} />
+                    <Route path="/contactinfo" component={ContactInfo} />
+                    <Route path="/profileinfo" component={ProfileInfo} />
+                    <Route path="/education" component={Education} />
+                    <Route path="/workexperience" component={WorkExperience} />
+                    <Route exact path="/signup" component={SignUp} />
+                    <Route exact path="/login" component={LogIn} />
+                    <Route
+                        exact
+                        path="/accountsettings"
+                        component={AccountSettings}
+                    />
+                    <Route path="*" component={NotFound} />
+                </Switch>
+            </AuthState>
         </Fragment>
     );
 };

@@ -20,10 +20,7 @@ const AuthState = ({ children }) => {
             setLoading(true);
             const {
                 data: { token },
-            } = await axios.post(
-                `${process.env.REACT_APP_BLOG_API}/auth/signup`,
-                data
-            );
+            } = await axios.post(`http://localhost:5000/user/signup`, data);
             localStorage.setItem("token", token);
             setIsAuthenticated(true);
             setLoading(false);
@@ -45,10 +42,7 @@ const AuthState = ({ children }) => {
             setLoading(true);
             const {
                 data: { token },
-            } = await axios.post(
-                `${process.env.REACT_APP_BLOG_API}/auth/signin`,
-                data
-            );
+            } = await axios.post(`http://localhost:5000/user/signin`, data);
             localStorage.setItem("token", token);
             setIsAuthenticated(true);
             setLoading(false);

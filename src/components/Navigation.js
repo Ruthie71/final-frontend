@@ -2,8 +2,12 @@ import { Link, NavLink } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Navigation = () => {
+    const { isAuthenticated, signOut } = useContext(AuthContext);
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -16,12 +20,20 @@ const Navigation = () => {
                         <Nav.Link as={NavLink} to="/" exact>
                             Home
                         </Nav.Link>
-                        <Nav.Link as={NavLink} to="/signUp">
-                            Sign up
-                        </Nav.Link>
-                        <Nav.Link as={NavLink} to="/logIn">
-                            Log in
-                        </Nav.Link>
+                        {isAuthenticated ? (
+                            <>
+                                <Nav.Link onClick={signOut}>Log out</Nav.Link>
+                            </>
+                        ) : (
+                            <>
+                                <Nav.Link as={NavLink} to="/signUp">
+                                    Sign up
+                                </Nav.Link>
+                                <Nav.Link as={NavLink} to="/logIn">
+                                    Log in
+                                </Nav.Link>{" "}
+                            </>
+                        )}
                         <Nav.Link as={NavLink} to="/accountSettings">
                             Account settings
                         </Nav.Link>
