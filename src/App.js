@@ -13,28 +13,46 @@ import Education from "./components/Education";
 import WorkExperience from "./components/WorkExperience";
 import AuthState from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { Container } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 const App = () => {
     return (
         <Fragment>
             <AuthState>
                 <Navigation />
-                <Switch>
-                    <Route exact path="/" component={Home} />
-                    <ProtectedRoute path="/profile" component={Profile} />
-                    <Route path="/contactinfo" component={ContactInfo} />
-                    <Route path="/profileinfo" component={ProfileInfo} />
-                    <Route path="/education" component={Education} />
-                    <Route path="/workexperience" component={WorkExperience} />
-                    <Route exact path="/signup" component={SignUp} />
-                    <Route exact path="/login" component={LogIn} />
-                    <Route
-                        exact
-                        path="/accountsettings"
-                        component={AccountSettings}
-                    />
-                    <Route path="*" component={NotFound} />
-                </Switch>
+                <Container>
+                    <Row className="mt-5 justify-content-center">
+                        <Switch>
+                            <Route exact path="/" component={Home} />
+                            <ProtectedRoute
+                                path="/profile"
+                                component={Profile}
+                            />
+                            <Route
+                                path="/contactinfo"
+                                component={ContactInfo}
+                            />
+                            <Route
+                                path="/profileinfo"
+                                component={ProfileInfo}
+                            />
+                            <Route path="/education" component={Education} />
+                            <Route
+                                path="/workexperience"
+                                component={WorkExperience}
+                            />
+                            <Route exact path="/signup" component={SignUp} />
+                            <Route exact path="/login" component={LogIn} />
+                            <Route
+                                exact
+                                path="/accountsettings"
+                                component={AccountSettings}
+                            />
+                            <Route path="*" component={NotFound} />
+                        </Switch>
+                    </Row>
+                </Container>
             </AuthState>
         </Fragment>
     );
