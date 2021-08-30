@@ -7,6 +7,7 @@ import WorkExperience from "./WorkExperience";
 import ProfileInfo from "./ProfileInfo";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
+import CreateTemplate from "./CreateTemplate";
 // import NotFound from "./NotFound";
 
 const Profile = ({ match }) => {
@@ -31,6 +32,10 @@ const Profile = ({ match }) => {
                         <Route
                             path={"/profile/workexperience"}
                             component={WorkExperience}
+                        />
+                        <Route
+                            path={"/profile/createtemplate"}
+                            component={CreateTemplate}
                         />
                     </Switch>
                 </Row>

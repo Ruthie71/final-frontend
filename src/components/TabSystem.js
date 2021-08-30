@@ -22,6 +22,9 @@ const TabSystem = () => {
                 <Nav.Link as={NavLink} to="/profile/workExperience">
                     Work experience
                 </Nav.Link>
+                <Nav.Link as={NavLink} to="/profile/createtemplate">
+                    Create template
+                </Nav.Link>
             </Nav>
         </Fragment>
     );

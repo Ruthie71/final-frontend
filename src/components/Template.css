@@ -1,0 +1,8 @@
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: 10mm auto;
+    border: 1px solid black;
+    overflow-wrap: break-word;
+}
