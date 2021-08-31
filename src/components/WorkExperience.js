@@ -11,10 +11,10 @@ const Work = () => {
             <Container>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="jobTitle">
+                        <Form.Group className="mb-3" controlId="formJobTitle">
                             <Form.Label>Job title</Form.Label>
                             <Form.Control
-                                type="jobTitle"
+                                type="text"
                                 placeholder="Enter job title"
                             />
                         </Form.Group>
@@ -24,10 +24,10 @@ const Work = () => {
                         controlId="formBasicCheckbox"
                     ></Form.Group>
                     <Col>
-                        <Form.Group className="mb-3" controlId="Employer">
+                        <Form.Group className="mb-3" controlId="formEmployer">
                             <Form.Label>Employer</Form.Label>
                             <Form.Control
-                                type="employer"
+                                type="text"
                                 placeholder="Enter employer name"
                             />
                         </Form.Group>
@@ -39,28 +39,28 @@ const Work = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="startDate">
+                        <Form.Group className="mb-3" controlId="formStartDate">
                             <Form.Label>Start date</Form.Label>
                             <Form.Control
-                                type="startDate"
+                                type="text"
                                 placeholder="Enter start date"
                             />
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group className="mb-3" controlId="finishDate">
+                        <Form.Group className="mb-3" controlId="formFinishDate">
                             <Form.Label>Finish date</Form.Label>
                             <Form.Control
-                                type="phone"
+                                type="text"
                                 placeholder="Enter finish date"
                             />
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group className="mb-3" controlId="location">
+                        <Form.Group className="mb-3" controlId="formLocation">
                             <Form.Label>Location</Form.Label>
                             <Form.Control
-                                type="location"
+                                type="text"
                                 placeholder="Enter the location of the institution"
                             />
                         </Form.Group>
@@ -73,7 +73,10 @@ const Work = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="workHistory">
+                        <Form.Group
+                            className="mb-3"
+                            controlId="formWorkHistory"
+                        >
                             <Form.Label>Work Experience</Form.Label>
                             <Form.Control
                                 as="textarea"

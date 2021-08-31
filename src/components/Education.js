@@ -11,10 +11,10 @@ const Education = () => {
             <Container>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="school">
+                        <Form.Group className="mb-3" controlId="formSchool">
                             <Form.Label>School</Form.Label>
                             <Form.Control
-                                type="school"
+                                type="text"
                                 placeholder="Enter school name"
                             />
                         </Form.Group>
@@ -24,10 +24,10 @@ const Education = () => {
                         controlId="formBasicCheckbox"
                     ></Form.Group>
                     <Col>
-                        <Form.Group className="mb-3" controlId="Degree">
+                        <Form.Group className="mb-3" controlId="formDegree">
                             <Form.Label>Qualification</Form.Label>
                             <Form.Control
-                                type="qualication"
+                                type="text"
                                 placeholder="Enter qualification"
                             />
                         </Form.Group>
@@ -39,28 +39,28 @@ const Education = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="startDate">
+                        <Form.Group className="mb-3" controlId="FormStartDate">
                             <Form.Label>Start date</Form.Label>
                             <Form.Control
-                                type="startDate"
+                                type="text"
                                 placeholder="Enter start date"
                             />
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group className="mb-3" controlId="finishDate">
+                        <Form.Group className="mb-3" controlId="formFinishDate">
                             <Form.Label>Finish date</Form.Label>
                             <Form.Control
-                                type="phone"
+                                type="text"
                                 placeholder="Enter finish date"
                             />
                         </Form.Group>
                     </Col>
                     <Col>
-                        <Form.Group className="mb-3" controlId="location">
+                        <Form.Group className="mb-3" controlId="formLocation">
                             <Form.Label>Location</Form.Label>
                             <Form.Control
-                                type="location"
+                                type="text"
                                 placeholder="Enter the location of the institution"
                             />
                         </Form.Group>
@@ -74,7 +74,10 @@ const Education = () => {
 
                 <Row>
                     <Col>
-                        <Form.Group className="mb-3" controlId="links">
+                        <Form.Group
+                            className="mb-3"
+                            controlId="formCourseDetails"
+                        >
                             <Form.Label>Your course details</Form.Label>
                             <Form.Control
                                 as="textarea"

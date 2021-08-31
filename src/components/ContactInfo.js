@@ -138,37 +138,6 @@ const ContactInfo = () => {
                             className="mb-3"
                             controlId="formBasicCheckbox"
                         ></Form.Group>
-                        <Row>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="password"
-                                >
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        placeholder="Enter Password"
-                                    />
-                                </Form.Group>
-                            </Col>
-                            <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="confirmPassword"
-                                >
-                                    <Form.Label>Confirm Password</Form.Label>
-                                    <Form.Control
-                                        type="confirmPassword"
-                                        placeholder="Re-enter Password"
-                                    />
-                                </Form.Group>
-                            </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
-                        </Row>
 
                         <Button variant="primary" type="submit">
                             Submit

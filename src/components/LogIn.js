@@ -42,7 +42,7 @@ const LogIn = () => {
                         {error && <Alert variant="danger">{error}</Alert>}
                     </Row>
                     <Row>
-                        <Form.Group className="mb-3" controlId="email">
+                        <Form.Group className="mb-3" controlId="formEmail">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 type="email"
@@ -57,10 +57,10 @@ const LogIn = () => {
                                 </Alert>
                             )}
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="password">
+                        <Form.Group className="mb-3" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
-                                type="password"
+                                type="text"
                                 placeholder="Password"
                                 {...register("password", {
                                     required: "Password is required",
