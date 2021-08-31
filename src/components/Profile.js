@@ -10,7 +10,7 @@ import { Row } from "react-bootstrap";
 import CreateTemplate from "./CreateTemplate";
 // import NotFound from "./NotFound";
 
-const Profile = ({ match }) => {
+const Profile = () => {
     return (
         <Fragment>
             <TabSystem />
