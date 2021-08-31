@@ -5,17 +5,20 @@ import ContactInfo from "./ContactInfo";
 import Education from "./Education";
 import WorkExperience from "./WorkExperience";
 import ProfileInfo from "./ProfileInfo";
-import { Container } from "react-bootstrap";
-import { Row } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import CreateTemplate from "./CreateTemplate";
+import ProfileSide from "./ProfileSide";
 // import NotFound from "./NotFound";
 
 const Profile = ({ match }) => {
     return (
-        <Fragment>
-            <TabSystem />
-            <Container>
-                <Row className="mt-5 justify-content-center">
+        <Container className="d-flex">
+            <ProfileSide md={3}/>
+            
+            <Container md={9}>
+            <TabSystem md={9} className="block"/>
+                <Row className="mt-5 block justify-content-center">
                     <Switch>
                         <Route
                             path={"/profile/contactInfo"}
@@ -40,7 +43,7 @@ const Profile = ({ match }) => {
                     </Switch>
                 </Row>
             </Container>
-        </Fragment>
+        </Container>
     );
 };
 

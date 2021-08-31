@@ -22,24 +22,27 @@ const Navigation = () => {
                         </Nav.Link>
                         {isAuthenticated ? (
                             <>
+                                <Nav.Link as={NavLink} to="/profile">
+                                    Profile
+                                </Nav.Link>
+                                <Nav.Link as={NavLink} to="/accountSettings">
+                                    Account settings
+                                </Nav.Link>
+                                
                                 <Nav.Link onClick={signOut}>Log out</Nav.Link>
                             </>
                         ) : (
                             <>
-                                <Nav.Link as={NavLink} to="/signUp">
-                                    Sign up
-                                </Nav.Link>
+                                
                                 <Nav.Link as={NavLink} to="/logIn">
                                     Log in
                                 </Nav.Link>{" "}
+                                <Nav.Link as={NavLink} to="/signUp">
+                                    Sign up
+                                </Nav.Link>
                             </>
                         )}
-                        <Nav.Link as={NavLink} to="/accountSettings">
-                            Account settings
-                        </Nav.Link>
-                        <Nav.Link as={NavLink} to="/profile">
-                            Profile
-                        </Nav.Link>
+                        
                     </Nav>
                 </Navbar.Collapse>
             </Container>
