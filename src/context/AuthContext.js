@@ -8,6 +8,7 @@ const AuthState = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    
     useEffect(() => authToken && setIsAuthenticated(true), [authToken]);
 
     const signUp = async (data) => {
@@ -21,7 +22,7 @@ const AuthState = ({ children }) => {
             const {
                 data: { token },
             } = await axios.post(`http://localhost:5000/user/signup`, data);
-            localStorage.setItem("token", token);
+            localStorage.setItem("token", token)
             setIsAuthenticated(true);
             setLoading(false);
         } catch (error) {

@@ -12,6 +12,7 @@ import ProfileInfo from "./components/ProfileInfo";
 import Education from "./components/Education";
 import WorkExperience from "./components/WorkExperience";
 import AuthState from "./context/AuthContext";
+import FormikState from "./context/FormikState";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
@@ -20,6 +21,7 @@ const App = () => {
     return (
         <Fragment>
             <AuthState>
+                <FormikState>
                 <Navigation />
                 <Container>
                     <Row className="mt-5 justify-content-center">
@@ -53,6 +55,10 @@ const App = () => {
                         </Switch>
                     </Row>
                 </Container>
+
+                </FormikState>
+
+               
             </AuthState>
         </Fragment>
     );

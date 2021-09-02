@@ -1,15 +1,16 @@
-import { useState, useRef, Fragment } from "react";
+import { useRef, Fragment, useContext } from "react";
 import { Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "./Template.css";
+import { FormikContext } from '../context/FormikState';
 
 import ReactToPdf from "react-to-pdf";
 // import "./App.css";
 
 const PdfTemplate = () => {
+    const {  user, firstname, lastname, email, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills , updateProfile} = useContext(FormikContext);
     const target = useRef();
-    const [summary, setSummary] = useState();
 
     return (
         <Fragment>
@@ -32,11 +33,11 @@ const PdfTemplate = () => {
                             </div>
 
                             <div>
-                                <h3>First name Second name</h3>
+                                <h3>{firstname} {lastname}</h3>
                                 <h3>Job title</h3>
                             </div>
                             <p>Address</p>
-                            <p>Email</p>
+                            <p>Email: {email}</p>
                             <p>Phone</p>
                             <p>Links</p>
                             <div>
@@ -70,7 +71,6 @@ const PdfTemplate = () => {
                                 </div>
                             </div>
 
-                            <p>{summary}</p>
                         </div>
                     </Col>
                 </Row>

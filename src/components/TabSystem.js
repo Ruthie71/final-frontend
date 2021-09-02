@@ -5,7 +5,7 @@ import { Fragment } from "react";
 
 const TabSystem = () => {
     const match = useRouteMatch();
-    console.log(match);
+
     return (
         <Fragment>
             <Nav variant="tabs" defaultActiveKey="profile/contactInfo">
@@ -22,9 +22,7 @@ const TabSystem = () => {
                 <Nav.Link as={NavLink} to="/profile/workExperience">
                     Work experience
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/profile/createtemplate">
-                    Create template
-                </Nav.Link>
+
             </Nav>
         </Fragment>
     );
