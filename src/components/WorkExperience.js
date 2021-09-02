@@ -1,3 +1,4 @@
+import {useContext} from "react";
 import {
     Formik,
     Field,
@@ -6,12 +7,15 @@ import {
     Form as FormikForm,
 } from "formik";
 import Form from "react-bootstrap/Form";
+import { FormikContext } from '../context/FormikState';
 
 const initialValues = {
     work: [],
 };
 
 export const Work = () => {
+    const { education, languages, updateProfile } = useContext(FormikContext);
+
     return (
         <Formik
             initialValues={initialValues}

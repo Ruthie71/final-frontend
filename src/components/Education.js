@@ -1,3 +1,4 @@
+import {useContext} from "react";
 import {
     Formik,
     Field,
@@ -7,19 +8,23 @@ import {
 } from "formik";
 import Form from "react-bootstrap/Form";
 import { Accordion } from "react-bootstrap/Accordion";
+import { FormikContext } from '../context/FormikState';
 
-const initialValues = {
-    education: [],
-};
+// const initialValues = {
+//     education: [],
+// };
 
 export const Education = () => {
+    const { education, languages, updateProfile } = useContext(FormikContext);
+
     return (
         <Formik
-            initialValues={initialValues}
-            onSubmit={async (values) => {
-                await new Promise((r) => setTimeout(r, 500));
-                alert(JSON.stringify(values, null, 2));
-            }}
+            initialValues={education}
+            // onSubmit={async (values) => {
+            //     await new Promise((r) => setTimeout(r, 500));
+            //     alert(JSON.stringify(values, null, 2));
+            // }}
+            onSubmit={(values) => updateProfile(values)}
         >
             {({ values }) => (
                 <Form as={FormikForm}>
