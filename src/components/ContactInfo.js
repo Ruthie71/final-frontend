@@ -1,46 +1,57 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Container } from "react-bootstrap";
+// import { Container } from "react-bootstrap";
+import { Formik, Form as FormikForm } from 'formik';
+import { FormikContext } from '../context/FormikState';
 
 const ContactInfo = () => {
+    const { firstname, lastname, address, contact, updateProfile} = useContext(FormikContext);
+
+
     return (
         <Fragment>
-            <Container>
-                <Col>
-                    <Form>
+            <Formik
+                initialValues={{ firstname, lastname, address, contact }}
+                onSubmit={(values) => updateProfile(values)}
+            >
+                {({values:{firstname, lastname, address: {city, country, housenr, street, zipcode}, contact: {email, phone, git, linkedin}},handleChange, handleSubmit, handleBlur}) => (
+                    <Form as={FormikForm}>
                         <Row>
                             <Col>
                                 <Form.Group
                                     className="mb-3"
-                                    controlId="firstName"
+                                    controlId="firstname"
                                 >
                                     <Form.Label>First Name</Form.Label>
                                     <Form.Control
-                                        type="firstName"
-                                        placeholder="Enter name"
+                                        type="text"
+                                        placeholder="Enter First Name"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={firstname}
+                                        name="firstname"
                                     />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group
                                     className="mb-3"
-                                    controlId="SecondName"
+                                    controlId="lastname"
                                 >
-                                    <Form.Label>Second Name</Form.Label>
+                                    <Form.Label>Last Name</Form.Label>
                                     <Form.Control
-                                        type="secondName"
-                                        placeholder="Enter Second Name"
+                                        type="text"
+                                        placeholder="Enter Last Name"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={lastname}
+                                        name="lastname"
                                     />
                                 </Form.Group>
                             </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
                         </Row>
                         <Row>
                             <Col>
@@ -49,6 +60,10 @@ const ContactInfo = () => {
                                     <Form.Control
                                         type="email"
                                         placeholder="Enter email"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={ email}
+                                        name="contact.email"
                                     />
                                 </Form.Group>
                             </Col>
@@ -58,14 +73,14 @@ const ContactInfo = () => {
                                     <Form.Control
                                         type="phone"
                                         placeholder="Enter Phone Number"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={ phone}
+                                        name="contact.phone"
                                     />
                                 </Form.Group>
                             </Col>
 
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
                         </Row>
                         <Row>
                             <Col>
@@ -77,6 +92,10 @@ const ContactInfo = () => {
                                     <Form.Control
                                         type="houseNumber"
                                         placeholder="Enter House Number"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={ housenr}
+                                        name="address.housenr"
                                     />
                                 </Form.Group>
                             </Col>
@@ -89,6 +108,10 @@ const ContactInfo = () => {
                                     <Form.Control
                                         type="streetName"
                                         placeholder="Enter Street Name"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={ street}
+                                        name="address.street"
                                     />
                                 </Form.Group>
                             </Col>
@@ -108,6 +131,10 @@ const ContactInfo = () => {
                                     <Form.Control
                                         type="zipCode"
                                         placeholder="Enter Zip Code"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={ zipcode}
+                                        name="address.zipcode"
                                     />
                                 </Form.Group>
                             </Col>
@@ -117,6 +144,10 @@ const ContactInfo = () => {
                                     <Form.Control
                                         type="phone"
                                         placeholder="Enter City"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={ city}
+                                        name="address.city"
                                     />
                                 </Form.Group>
                             </Col>
@@ -131,20 +162,19 @@ const ContactInfo = () => {
                             <Form.Control
                                 type="country"
                                 placeholder="Enter Country"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={ country}
+                                name="address.country"
                             />
                         </Form.Group>
-
-                        <Form.Group
-                            className="mb-3"
-                            controlId="formBasicCheckbox"
-                        ></Form.Group>
 
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>
                     </Form>
-                </Col>
-            </Container>
+                )}
+            </Formik>
         </Fragment>
     );
 };

@@ -15,8 +15,6 @@ const SignUp = () => {
     const location = useLocation();
     const { loading, isAuthenticated, error, signUp } = useContext(AuthContext);
     const defaultValues = {
-        firstName: "",
-        lastName: "",
         email: "",
         password: "",
         passwordConfirm: "",
@@ -54,44 +52,6 @@ const SignUp = () => {
                                 <Row>
                                     <Form.Group
                                         className="mb-3"
-                                        controlId="formFirstName"
-                                    >
-                                        <Form.Label>First name</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="First name"
-                                            {...register("firstname", {
-                                                required:
-                                                    "First name is required",
-                                            })}
-                                        />
-                                        {errors.firstName && (
-                                            <Alert variant="danger">
-                                                {errors.firstName.message}
-                                            </Alert>
-                                        )}
-                                    </Form.Group>
-                                    <Form.Group
-                                        className="mb-3"
-                                        controlId="formLastName"
-                                    >
-                                        <Form.Label>Last name</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Last name"
-                                            {...register("lastname", {
-                                                required:
-                                                    "Last name is required",
-                                            })}
-                                        />
-                                        {errors.lastName && (
-                                            <Alert variant="danger">
-                                                {errors.lastName.message}
-                                            </Alert>
-                                        )}
-                                    </Form.Group>
-                                    <Form.Group
-                                        className="mb-3"
                                         controlId="formEmail"
                                     >
                                         <Form.Label>Email</Form.Label>
@@ -114,7 +74,7 @@ const SignUp = () => {
                                     >
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="password"
                                             placeholder="Password"
                                             {...register("password", {
                                                 required:
@@ -135,7 +95,7 @@ const SignUp = () => {
                                             Confirm password
                                         </Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="password"
                                             placeholder="Confirm your password"
                                             {...register("passwordConfirm", {
                                                 required:
@@ -149,7 +109,7 @@ const SignUp = () => {
                                         )}
                                     </Form.Group>
                                 </Row>
-                                <button type="button" class="btn btn-warning">
+                                <button type="submit" class="btn btn-warning" >
                                     Submit
                                 </button>
                             </Form>

@@ -60,7 +60,7 @@ const LogIn = () => {
                         <Form.Group className="mb-3" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control
-                                type="text"
+                                type="password"
                                 placeholder="Password"
                                 {...register("password", {
                                     required: "Password is required",
