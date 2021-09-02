@@ -18,7 +18,7 @@ const FormikState = ({ children }) => {
         education: [],
         languages: [],
         work: [],
-        techskills: [],
+        techskills: []
     });
     const { _id, user, firstname, lastname, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills } = profile;
 
@@ -36,22 +36,15 @@ const FormikState = ({ children }) => {
         AuthStr && getData()
 
     }, [AuthStr])
-    
 
     const updateProfile = async (values)=>{
         setLoadingProfile(true)
-        setTimeout(() => {
-            setProfile(prev=> ({...prev, ...values}))
-            setLoadingProfile(false)
-        }, 500);
-        console.log(_id)
-        console.log(contact)
-        const sentData = await axios.put(`http://localhost:5000/profiles/${_id}`,{ headers: { Authorization: AuthStr }, body: profile } )
-        
-        console(sentData)
+        const {data} = await axios.put(`http://localhost:5000/profiles/${_id}`, values,{ headers: { Authorization: AuthStr, 'Content-Type': 'application/json' } } )
+        setProfile(data)
+        setLoadingProfile(false)
     }
 
-
+    console.log(education.length)
     return (
         <FormikContext.Provider value={{ loadingProfile, user, firstname, lastname, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills , updateProfile}}>
             {children}

@@ -1,15 +1,17 @@
+import { useState, Fragment, useContext } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
-import { useState, Fragment } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import AvatarEditor from 'react-avatar-editor'
+
+import { FormikContext } from '../context/FormikState';
 
 
 const PhotoUploader = () => {
     const [preview, setPreview] = useState(null);
+    const { photo} = useContext(FormikContext);
     const defaultValues = {
         photo: '',
 
@@ -47,7 +49,7 @@ const PhotoUploader = () => {
 
 
     return <Form.Group className='mb-3 flex-column d-flex justify-content-center align-items-center' controlId='coverSelect'>
-      <img src={preview || noPic} alt="profile pic" class="img-thumbnail"   height= "200px" width="50%"></img>
+      <img src={preview || photo || noPic} alt="profile pic" class="img-thumbnail"   height= "200px" width="50%"></img>
     {/* <AvatarEditor"
         image={preview || noPic}
         width={250}
