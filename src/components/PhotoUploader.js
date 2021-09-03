@@ -49,7 +49,7 @@ const PhotoUploader = () => {
 
 
     return <Form.Group className='mb-3 flex-column d-flex justify-content-center align-items-center' controlId='coverSelect'>
-      <img src={preview || photo || noPic} alt="profile pic" class="img-thumbnail"   height= "200px" width="50%"></img>
+      <img src={preview || photo || noPic} alt="profile pic" className="img-thumbnail"   height= "200px" width="50%"></img>
     {/* <AvatarEditor"
         image={preview || noPic}
         width={250}

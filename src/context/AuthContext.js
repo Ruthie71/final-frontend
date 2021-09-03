@@ -4,12 +4,13 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 const AuthState = ({ children }) => {
-    const authToken = localStorage.getItem("token");
+    // const authToken = localStorage.getItem("token");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
-    useEffect(() => authToken && setIsAuthenticated(true), [authToken]);
+    useEffect(() => token && setIsAuthenticated(true), [token]);
 
     const signUp = async (data) => {
         if (data.password !== data.passwordConfirm) {
@@ -23,6 +24,7 @@ const AuthState = ({ children }) => {
                 data: { token },
             } = await axios.post(`http://localhost:5000/user/signup`, data);
             localStorage.setItem("token", token)
+            setToken(token)
             setIsAuthenticated(true);
             setLoading(false);
         } catch (error) {
@@ -45,6 +47,7 @@ const AuthState = ({ children }) => {
                 data: { token },
             } = await axios.post(`http://localhost:5000/user/signin`, data);
             localStorage.setItem("token", token);
+            setToken(token);
             setIsAuthenticated(true);
             setLoading(false);
         } catch (error) {
@@ -67,7 +70,7 @@ const AuthState = ({ children }) => {
 
     return (
         <AuthContext.Provider
-            value={{ loading, isAuthenticated, error, signUp, signIn, signOut }}
+            value={{ loading, isAuthenticated, error, signUp, signIn, signOut, token }}
         >
             {children}
         </AuthContext.Provider>
