@@ -16,58 +16,57 @@ import { FormikContext } from '../context/FormikState';
 
 export const Education = () => {
     const { education, languages, updateProfile } = useContext(FormikContext);
-    console.log(education)
     return (
         <Formik
-            initialValues={education}
+            initialValues={{education}}
             // onSubmit={async (values) => {
             //     await new Promise((r) => setTimeout(r, 500));
             //     alert(JSON.stringify(values, null, 2));
             // }}
             onSubmit={(values) => updateProfile(values)}
         >
-            {({ values }) => (
+            {({ values }) => {
+                return (
                 <Form as={FormikForm}>
                     <FieldArray name="education">
                         {({ insert, remove, push }) => (
                             <div>
-                                {education.length > 0 &&
-                                    education.map((education, index) => (
+                                {values.education.map((education, index) => (
                                         <div className="row" key={index}>
                                             <Form.Group
                                                 className="mb-3"
-                                                controlId="schoolname"
+                                                controlId="academicinstitution"
                                             >
                                                 <Form.Label>
                                                     Name of academic institution
                                                 </Form.Label>
                                                 <Form.Control
                                                     as={Field}
-                                                    name={`education.${index}.schoolname`}
+                                                    name={`education.${index}.academicinstitution`}
                                                     placeholder="Insert name of academic institution"
                                                     type="text"
                                                 />
                                                 <ErrorMessage
-                                                    name={`education.${index}.schoolname`}
+                                                    name={`education.${index}.academicinstitution`}
                                                     component="div"
                                                     className="field-error"
                                                 />
                                             </Form.Group>
                                             <Form.Group
                                                 className="mb-3"
-                                                controlId="degree"
+                                                controlId="coursename"
                                             >
                                                 <Form.Label>
                                                     Academic qualification
                                                 </Form.Label>
                                                 <Form.Control
                                                     as={Field}
-                                                    name={`education.${index}.degree`}
+                                                    name={`education.${index}.coursename`}
                                                     placeholder="Insert name of qualification"
-                                                    type="date"
+                                                    type="text"
                                                 />
                                                 <ErrorMessage
-                                                    name={`educations.${index}.degree`}
+                                                    name={`educations.${index}.coursename`}
                                                     component="div"
                                                     className="field-error"
                                                 />
@@ -132,20 +131,20 @@ export const Education = () => {
                                             </Form.Group>
                                             <Form.Group
                                                 className="mb-3"
-                                                controlId="coursedetails"
+                                                controlId="coursecontent"
                                             >
                                                 <Form.Label>
                                                     Course details
                                                 </Form.Label>
                                                 <Form.Control
                                                     as={Field}
-                                                    name={`education.${index}.coursedetails`}
+                                                    name={`education.${index}.coursecontent`}
                                                     placeholder="Insert course details"
                                                     component="textarea"
                                                     rows={6}
                                                 />
                                                 <ErrorMessage
-                                                    name={`education.${index}.coursedetails`}
+                                                    name={`education.${index}.coursecontent`}
                                                     component="div"
                                                     className="field-error"
                                                 />
@@ -169,12 +168,12 @@ export const Education = () => {
                                     className="secondary"
                                     onClick={() =>
                                         push({
-                                            jobtitle: "",
+                                            coursename: "",
                                             startdate: "",
                                             finishdate: "",
-                                            companyname: "",
+                                            academicinstitution: "",
                                             location: "",
-                                            keyachievements: "",
+                                            coursecontent: "",
                                         })
                                     }
                                 >
@@ -185,7 +184,7 @@ export const Education = () => {
                     </FieldArray>
                     <button type="submit">Submit</button>
                 </Form>
-            )}
+            )}}
         </Formik>
     );
 };
