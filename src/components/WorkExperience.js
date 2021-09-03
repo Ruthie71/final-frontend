@@ -9,28 +9,22 @@ import {
 import Form from "react-bootstrap/Form";
 import { FormikContext } from '../context/FormikState';
 
-const initialValues = {
-    work: [],
-};
 
 export const Work = () => {
-    const { education, languages, updateProfile } = useContext(FormikContext);
+    const {  work, techskills, updateProfile } = useContext(FormikContext);
 
     return (
         <Formik
-            initialValues={initialValues}
-            onSubmit={async (values) => {
-                await new Promise((r) => setTimeout(r, 500));
-                alert(JSON.stringify(values, null, 2));
-            }}
+            initialValues={work}
+            onSubmit={(values) => updateProfile(values)}
         >
             {({ values }) => (
                 <Form as={FormikForm}>
                     <FieldArray name="work">
                         {({ insert, remove, push }) => (
                             <div>
-                                {values.work.length > 0 &&
-                                    values.work.map((w, index) => (
+                                {work.length > 0 &&
+                                    work.map((work, index) => (
                                         <div className="row" key={index}>
                                             <Form.Group
                                                 className="mb-3"

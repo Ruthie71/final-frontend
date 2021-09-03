@@ -16,7 +16,7 @@ import { FormikContext } from '../context/FormikState';
 
 export const Education = () => {
     const { education, languages, updateProfile } = useContext(FormikContext);
-
+    console.log(education)
     return (
         <Formik
             initialValues={education}
@@ -31,8 +31,8 @@ export const Education = () => {
                     <FieldArray name="education">
                         {({ insert, remove, push }) => (
                             <div>
-                                {values.education.length > 0 &&
-                                    values.education.map((education, index) => (
+                                {education.length > 0 &&
+                                    education.map((education, index) => (
                                         <div className="row" key={index}>
                                             <Form.Group
                                                 className="mb-3"

@@ -21,8 +21,10 @@ const FormikState = ({ children }) => {
         techskills: []
     });
     const { _id, user, firstname, lastname, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills } = profile;
+    
+    
+    let AuthStr = localStorage.getItem('token') ? `Bearer ${localStorage.getItem("token")}` : null
 
-    const AuthStr = localStorage.getItem('token') ? `Bearer ${localStorage.getItem("token")}` : null
 
     useEffect(() => {
         setLoadingProfile(true)
@@ -37,14 +39,16 @@ const FormikState = ({ children }) => {
 
     }, [AuthStr])
 
+
+
     const updateProfile = async (values)=>{
         setLoadingProfile(true)
+        console.log(values)
         const {data} = await axios.put(`http://localhost:5000/profiles/${_id}`, values,{ headers: { Authorization: AuthStr, 'Content-Type': 'application/json' } } )
         setProfile(data)
         setLoadingProfile(false)
     }
 
-    console.log(education.length)
     return (
         <FormikContext.Provider value={{ loadingProfile, user, firstname, lastname, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills , updateProfile}}>
             {children}

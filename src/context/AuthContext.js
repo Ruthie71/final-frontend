@@ -8,7 +8,7 @@ const AuthState = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    
+
     useEffect(() => authToken && setIsAuthenticated(true), [authToken]);
 
     const signUp = async (data) => {

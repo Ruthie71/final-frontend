@@ -86,7 +86,7 @@ const ContactInfo = () => {
                             <Col>
                                 <Form.Group
                                     className="mb-3"
-                                    controlId="houseNumber"
+                                    controlId="housenr"
                                 >
                                     <Form.Label>House Number</Form.Label>
                                     <Form.Control
@@ -102,7 +102,7 @@ const ContactInfo = () => {
                             <Col>
                                 <Form.Group
                                     className="mb-3"
-                                    controlId="StreetName"
+                                    controlId="street"
                                 >
                                     <Form.Label>Street Name</Form.Label>
                                     <Form.Control
@@ -125,7 +125,7 @@ const ContactInfo = () => {
                             <Col>
                                 <Form.Group
                                     className="mb-3"
-                                    controlId="zipCode"
+                                    controlId="zipcode"
                                 >
                                     <Form.Label>Zip Code</Form.Label>
                                     <Form.Control
