@@ -15,7 +15,7 @@ export const Work = () => {
 
     return (
         <Formik
-            initialValues={work}
+            initialValues={{work}}
             onSubmit={(values) => updateProfile(values)}
         >
             {({ values }) => (
@@ -23,8 +23,8 @@ export const Work = () => {
                     <FieldArray name="work">
                         {({ insert, remove, push }) => (
                             <div>
-                                {work.length > 0 &&
-                                    work.map((work, index) => (
+                                {values.work.length > 0 &&
+                                    values.work.map((work, index) => (
                                         <div className="row" key={index}>
                                             <Form.Group
                                                 className="mb-3"
@@ -166,7 +166,7 @@ export const Work = () => {
                                         push({
                                             jobtitle: "",
                                             startdate: "",
-                                            finisdate: "",
+                                            finishdate: "",
                                             companyname: "",
                                             location: "",
                                             keyachievements: "",
