@@ -12,7 +12,7 @@ const Navigation = () => {
         <Navbar bg="light" expand="lg">
             <Container>
                 <Navbar.Brand as={Link} to="/">
-                    dfjk';,mgo
+                    Logo
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -28,12 +28,11 @@ const Navigation = () => {
                                 <Nav.Link as={NavLink} to="/accountSettings">
                                     Account settings
                                 </Nav.Link>
-                                
+
                                 <Nav.Link onClick={signOut}>Log out</Nav.Link>
                             </>
                         ) : (
                             <>
-                                
                                 <Nav.Link as={NavLink} to="/logIn">
                                     Log in
                                 </Nav.Link>{" "}
@@ -42,7 +41,6 @@ const Navigation = () => {
                                 </Nav.Link>
                             </>
                         )}
-                        
                     </Nav>
                 </Navbar.Collapse>
             </Container>
