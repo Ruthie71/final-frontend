@@ -5,7 +5,7 @@ import "./KeyWords.css"
 
 const KeyWords = ({ tags, setTags, suggestions, noSuggestionsText }) => {
   const reactTags = useRef();
-  const onDelete = i => setTags(prev => prev.filter(t => t._id !== tags[i]._id));
+  const onDelete = i => setTags(prev => prev.filter(t => t.id !== tags[i].id));
 
   const onAddition = tag => setTags(prev => [...prev, tag]);
 

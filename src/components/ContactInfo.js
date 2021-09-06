@@ -3,12 +3,11 @@ import Button from "react-bootstrap/Button";
 import { Fragment, useContext } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-// import { Container } from "react-bootstrap";
 import { Formik, Form as FormikForm } from 'formik';
 import { FormikContext } from '../context/FormikState';
 
 const ContactInfo = () => {
-    const { firstname, lastname, address, contact, updateProfile} = useContext(FormikContext);
+    const { firstname, lastname, address, contact, updateProfile } = useContext(FormikContext);
 
 
     return (
@@ -17,7 +16,7 @@ const ContactInfo = () => {
                 initialValues={{ firstname, lastname, address, contact }}
                 onSubmit={(values) => updateProfile(values)}
             >
-                {({values:{firstname, lastname, address: {city, country, housenr, street, zipcode}, contact: {email, phone, git, linkedin}},handleChange, handleSubmit, handleBlur}) => (
+                {({ values: { firstname, lastname, address: { city, country, housenr, street, zipcode }, contact: { email, phone, git, linkedin } }, handleChange, handleSubmit, handleBlur }) => (
                     <Form as={FormikForm}>
                         <Row>
                             <Col>
@@ -62,7 +61,7 @@ const ContactInfo = () => {
                                         placeholder="Enter email"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={ email}
+                                        value={email}
                                         name="contact.email"
                                     />
                                 </Form.Group>
@@ -75,7 +74,7 @@ const ContactInfo = () => {
                                         placeholder="Enter Phone Number"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={ phone}
+                                        value={phone}
                                         name="contact.phone"
                                     />
                                 </Form.Group>
@@ -94,7 +93,7 @@ const ContactInfo = () => {
                                         placeholder="Enter House Number"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={ housenr}
+                                        value={housenr}
                                         name="address.housenr"
                                     />
                                 </Form.Group>
@@ -110,7 +109,7 @@ const ContactInfo = () => {
                                         placeholder="Enter Street Name"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={ street}
+                                        value={street}
                                         name="address.street"
                                     />
                                 </Form.Group>
@@ -133,7 +132,7 @@ const ContactInfo = () => {
                                         placeholder="Enter Zip Code"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={ zipcode}
+                                        value={zipcode}
                                         name="address.zipcode"
                                     />
                                 </Form.Group>
@@ -146,7 +145,7 @@ const ContactInfo = () => {
                                         placeholder="Enter City"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={ city}
+                                        value={city}
                                         name="address.city"
                                     />
                                 </Form.Group>
@@ -164,7 +163,7 @@ const ContactInfo = () => {
                                 placeholder="Enter Country"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                value={ country}
+                                value={country}
                                 name="address.country"
                             />
                         </Form.Group>

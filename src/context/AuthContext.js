@@ -4,7 +4,6 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 const AuthState = ({ children }) => {
-    // const authToken = localStorage.getItem("token");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);

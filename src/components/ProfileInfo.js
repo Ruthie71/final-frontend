@@ -1,5 +1,4 @@
 import { Fragment, useContext, useState, useEffect } from "react";
-import { Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
@@ -15,12 +14,12 @@ const ProfileInfo = () => {
 
     const { contact, personalstatement, personalskills, details, updateProfile } = useContext(FormikContext);
     const { token } = useContext(AuthContext);
-    const [ DBskills, setDBskills] = useState();
-    const [ userSkills, setUserSkills] = useState(personalskills);
+    const [DBskills, setDBskills] = useState();
+    const [userSkills, setUserSkills] = useState(personalskills);
 
     useEffect(() => {
         const getData = async () => {
-            const {data} = await axios.get('http://localhost:5000/personalskills', { headers: { Authorization: `Bearer ${token}` } })
+            const { data } = await axios.get('http://localhost:5000/personalskills', { headers: { Authorization: `Bearer ${token}` } })
             setDBskills(data)
         }
         getData()
@@ -28,10 +27,8 @@ const ProfileInfo = () => {
 
     const SkillSubmit = () => {
         console.log(userSkills)
-        updateProfile({personalskills: userSkills})
+        updateProfile({ personalskills: userSkills })
     }
-
-    console.log(DBskills)
 
     return (
         <Fragment>
@@ -45,8 +42,6 @@ const ProfileInfo = () => {
                 {({ values: { personalstatement, contact: { email, phone, git, linkedin }, details: { jobtitle, dateofbirth } }, handleChange, handleSubmit, handleBlur }) => (
                     <Form as={FormikForm}>
                         <Row>
-
-
                             <Col>
                                 <Form.Group className="mb-3" controlId="occupation">
                                     <Form.Label>Occupation</Form.Label>
@@ -61,14 +56,26 @@ const ProfileInfo = () => {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="links">
-                                    <Form.Label>links</Form.Label>
+                                    <Form.Label>Linkedin</Form.Label>
                                     <Form.Control
                                         type="links"
-                                        placeholder="Enter link"
+                                        placeholder="Enter Linkedin"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={linkedin}
                                         name="contact.linkedin"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="links">
+                                    <Form.Label>Github</Form.Label>
+                                    <Form.Control
+                                        type="links"
+                                        placeholder="Enter Github"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={git}
+                                        name="contact.git"
                                     />
                                 </Form.Group>
                             </Col>
@@ -96,15 +103,12 @@ const ProfileInfo = () => {
                 )}
             </Formik>
             <KeyWords
-        tags={userSkills}
-        setTags={setUserSkills}
-        suggestions={DBskills}
-        noSuggestionsText='No soft skills found'
-      />       
-      <Button variant="primary" onClick={SkillSubmit}>
-      SkillSubmit
-                        </Button>
-
+                tags={userSkills}
+                setTags={setUserSkills}
+                suggestions={DBskills}
+                noSuggestionsText='No soft skills found'
+            />
+            <Button variant="primary" onClick={SkillSubmit}>SkillSubmit</Button>
         </Fragment>
     );
 };
