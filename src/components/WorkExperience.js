@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useEffect, useState, Fragment} from "react";
 import {
     Formik,
     Field,
@@ -7,13 +7,34 @@ import {
     Form as FormikForm,
 } from "formik";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import KeyWords from "./KeyWords"
 import { FormikContext } from '../context/FormikState';
-
+import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 export const Work = () => {
     const {  work, techskills, updateProfile } = useContext(FormikContext);
+    const { token } = useContext(AuthContext);
+    const [ DBTechSkills, setDBTechSkills] = useState();
+    const [ userTechSkills, setUserTechSkills] = useState(techskills);
+
+    useEffect(() => {
+        const getData = async () => {
+            const {data} = await axios.get('http://localhost:5000/techskills', { headers: { Authorization: `Bearer ${token}` } })
+            setDBTechSkills(data)
+        }
+        getData()
+    }, [])
+
+    const TechSkillsSubmit = () => {
+        console.log(userTechSkills)
+        updateProfile({techskills: userTechSkills})
+    }
+
 
     return (
+        <Fragment>
         <Formik
             initialValues={{work}}
             onSubmit={(values) => updateProfile(values)}
@@ -182,6 +203,18 @@ export const Work = () => {
                 </Form>
             )}
         </Formik>
+                <KeyWords
+                tags={userTechSkills}
+                setTags={setUserTechSkills}
+                suggestions={DBTechSkills}
+                noSuggestionsText='No soft skills found'
+              />       
+              <Button variant="primary" onClick={TechSkillsSubmit}>
+              SkillSubmit
+                                </Button>
+        
+                </Fragment>
+
     );
 };
 

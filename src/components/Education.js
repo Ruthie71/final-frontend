@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useState, useEffect, Fragment} from "react";
 import {
     Formik,
     Field,
@@ -7,8 +7,12 @@ import {
     Form as FormikForm,
 } from "formik";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { Accordion } from "react-bootstrap/Accordion";
+import KeyWords from "./KeyWords"
 import { FormikContext } from '../context/FormikState';
+import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 // const initialValues = {
 //     education: [],
@@ -16,7 +20,27 @@ import { FormikContext } from '../context/FormikState';
 
 export const Education = () => {
     const { education, languages, updateProfile } = useContext(FormikContext);
+    const { token } = useContext(AuthContext);
+    const [ DBLanguage, setDBLanguage] = useState();
+    const [ userLanguage, setuserLanguage] = useState(languages);
+
+    useEffect(() => {
+        const getData = async () => {
+            const {data} = await axios.get('http://localhost:5000/languages', { headers: { Authorization: `Bearer ${token}` } })
+            setDBLanguage(data)
+        }
+        getData()
+    }, [])
+
+    const LanguageSubmit = () => {
+        console.log(userLanguage)
+        updateProfile({languages: userLanguage})
+    }
+
+
+
     return (
+        <Fragment>
         <Formik
             initialValues={{education}}
             // onSubmit={async (values) => {
@@ -186,7 +210,20 @@ export const Education = () => {
                 </Form>
             )}}
         </Formik>
+        <KeyWords
+        tags={userLanguage}
+        setTags={setuserLanguage}
+        suggestions={DBLanguage}
+        noSuggestionsText='No soft skills found'
+      />       
+      <Button variant="primary" onClick={LanguageSubmit}>
+      SkillSubmit
+                        </Button>
+
+        </Fragment>
     );
 };
+
+
 
 export default Education;
