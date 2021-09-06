@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import Container from "react-bootstrap/Container";
 import { Switch, Route } from "react-router-dom";
-import axios from "axios";
 import TabSystem from "./TabSystem";
 import ContactInfo from "./ContactInfo";
 import Education from "./Education";
@@ -13,23 +12,9 @@ import {FormikContext} from '../context/FormikState'
 // import NotFound from "./NotFound";
 
 const Profile = () => {
-//     const [userData, setUserData] = useState();
 
-//     const AuthStr =  `Bearer ${localStorage.getItem("token")}`
-
-//     useEffect(() =>  {
-//         const getData = async () => {
-//     const userInfo = await axios.get('http://localhost:5000/user/me', { headers: { Authorization: AuthStr } })
-//     const serverInfo = await axios.get(`http://localhost:5000/profiles/${userInfo.data.profile._id}`, { headers: { Authorization: AuthStr } })
-//     setUserData(userInfo.data)
-    
-// }
-//     getData()
-    
-// }, [])
-
-// console.log(userData)
     const {loadingProfile} = useContext(FormikContext)
+
     return (
         <Container className="d-flex">
             {loadingProfile ? <div>We are preparing your template</div>: (<><Container fluid>
