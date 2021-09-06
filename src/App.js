@@ -22,43 +22,47 @@ const App = () => {
         <Fragment>
             <AuthState>
                 <FormikState>
-                <Navigation />
-                <Container>
-                    <Row className="mt-5 justify-content-center">
-                        <Switch>
-                            <Route exact path="/" component={Home} />
-                            <ProtectedRoute
-                                path="/profile"
-                                component={Profile}
-                            />
-                            <Route
-                                path="/contactinfo"
-                                component={ContactInfo}
-                            />
-                            <Route
-                                path="/profileinfo"
-                                component={ProfileInfo}
-                            />
-                            <Route path="/education" component={Education} />
-                            <Route
-                                path="/workexperience"
-                                component={WorkExperience}
-                            />
-                            <Route exact path="/signup" component={SignUp} />
-                            <Route exact path="/login" component={LogIn} />
-                            <Route
-                                exact
-                                path="/accountsettings"
-                                component={AccountSettings}
-                            />
-                            <Route path="*" component={NotFound} />
-                        </Switch>
-                    </Row>
-                </Container>
-
+                    <Navigation />
+                    <Container fluid>
+                        <Row className="justify-content-center">
+                            <Switch>
+                                <Route exact path="/" component={Home} />
+                                <ProtectedRoute
+                                    path="/profile"
+                                    component={Profile}
+                                />
+                                <Route
+                                    path="/contactinfo"
+                                    component={ContactInfo}
+                                />
+                                <Route
+                                    path="/profileinfo"
+                                    component={ProfileInfo}
+                                />
+                                <Route
+                                    path="/education"
+                                    component={Education}
+                                />
+                                <Route
+                                    path="/workexperience"
+                                    component={WorkExperience}
+                                />
+                                <Route
+                                    exact
+                                    path="/signup"
+                                    component={SignUp}
+                                />
+                                <Route exact path="/login" component={LogIn} />
+                                <Route
+                                    exact
+                                    path="/accountsettings"
+                                    component={AccountSettings}
+                                />
+                                <Route path="*" component={NotFound} />
+                            </Switch>
+                        </Row>
+                    </Container>
                 </FormikState>
-
-               
             </AuthState>
         </Fragment>
     );
