@@ -16,7 +16,6 @@ import { FormikContext } from '../context/FormikState';
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
-
 export const Education = () => {
     const { education, languages, updateProfile } = useContext(FormikContext);
     const { token } = useContext(AuthContext);
@@ -25,12 +24,16 @@ export const Education = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const { data } = await axios.get('http://localhost:5000/languages', { headers: { Authorization: `Bearer ${token}` } })
-            setDBLanguage(data)
-            console.log(data)
-        }
-        getData()
-    }, [])
+            const { data } = await axios.get(
+                "http://localhost:5000/languages",
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+            setDBLanguage(data);
+            console.log(data);
+        };
+        getData();
+    }, []);
+
 
     return (
         <Fragment>
@@ -230,7 +233,5 @@ export const Education = () => {
         </Fragment>
     );
 };
-
-
 
 export default Education;

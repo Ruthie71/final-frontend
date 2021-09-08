@@ -8,7 +8,6 @@ import Alert from "react-bootstrap/Alert";
 import Spinner from "react-bootstrap/Spinner";
 import { AuthContext } from "../context/AuthContext";
 import { Container } from "react-bootstrap";
-import "./SignUp.css";
 
 const SignUp = () => {
     const location = useLocation();
@@ -108,7 +107,7 @@ const SignUp = () => {
                                         )}
                                     </Form.Group>
                                 </Row>
-                                <button type="submit" class="btn btn-warning" >
+                                <button type="submit" class="btn btn-warning">
                                     Submit
                                 </button>
                             </Form>

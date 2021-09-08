@@ -1,9 +1,6 @@
 import { useContext, useState } from "react";
 import { Document, PDFViewer } from "@react-pdf/renderer";
 import Resume from "./Resume";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import { FormikContext } from "../../context/FormikState";
 
 const Template = () => {
@@ -27,12 +24,7 @@ const Template = () => {
     return (
         <>
             <PDFViewer>
-                <Document
-                    author="Luke Skywalker"
-                    keywords="awesome, resume, start wars"
-                    subject="The resume of Luke Skywalker"
-                    title="Resume"
-                >
+                <Document>
                     <Resume
                         size="A4"
                         theme={theme}
@@ -40,10 +32,16 @@ const Template = () => {
                         lastname={lastname}
                         contact={contact}
                         photo={photo}
+                        education={education}
+                        work={work}
+                        personalskills={personalskills}
+                        languages={languages}
+                        techskills={techskills}
+                        personalstatement={personalstatement}
                     />
                 </Document>
             </PDFViewer>
-            <div>
+            {/* <div>
                 <Button variant="danger" onClick={() => setTheme("red")}>
                     R
                 </Button>
@@ -53,7 +51,7 @@ const Template = () => {
                 <Button variant="info" onClick={() => setTheme("blue")}>
                     B
                 </Button>
-            </div>
+            </div> */}
         </>
     );
 };
