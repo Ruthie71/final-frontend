@@ -1,10 +1,9 @@
-import { useState, Fragment, useContext } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useState, useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
+import "./profile.css";
 
 import { FormikContext } from '../context/FormikState';
 
@@ -49,17 +48,7 @@ const PhotoUploader = () => {
 
 
     return <Form.Group className='mb-3 flex-column d-flex justify-content-center align-items-center' controlId='coverSelect'>
-      <img src={preview || photo || noPic} alt="profile pic" className="img-thumbnail"   height= "200px" width="50%"></img>
-    {/* <AvatarEditor"
-        image={preview || noPic}
-        width={250}
-        height={250}
-        border={50}
-        color={[255, 255, 255, 0.6]} // RGBA
-        scale={1.2}
-        rotate={0}
-      /> */}
-    {/* <Form.Label>Photo</Form.Label> */}
+      <img src={preview || photo || noPic} alt="profile pic" className="picuploarder" ></img>
     <Form.Control type='file' onChange={uploadPicture} />
     {errors.photo && <Alert variant='danger'>{errors.photo.message}</Alert>}
   </Form.Group>
