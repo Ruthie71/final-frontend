@@ -1,37 +1,43 @@
-import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
-import Title from "./Title";
-import List, { Item } from "./List";
+import Title from './Title';
+import List, { Item } from './List';
 
 const styles = StyleSheet.create({
-    title: {
-        fontFamily: "Lato Bold",
-        fontSize: 11,
-        marginBottom: 10,
-    },
-    skills: {
-        fontFamily: "Lato",
-        fontSize: 10,
-        marginBottom: 10,
-    },
+  title: {
+    fontFamily: 'Lato Bold',
+    fontSize: 11,
+    marginBottom: 10
+  },
+  skills: {
+    fontFamily: 'Lato',
+    fontSize: 10,
+    marginBottom: 10
+  }
 });
 
 const SkillEntry = ({ personalskills }) => (
-    <View>
-        <Text style={styles.title}></Text>
-        <List>
-            {personalskills.map((personalskill, i) => (
-                <Item key={i}>{personalskill}</Item>
-            ))}
-        </List>
-    </View>
+  <View>
+    <Text style={styles.title}></Text>
+    <List>
+      {personalskills.map((personalskill, i) => (
+        <Item key={i}>{personalskill.name}</Item>
+      ))}
+    </List>
+  </View>
 );
 
-const Skills = () => (
-    <View>
+const Skills = ({ personalskills }) => (
+  <View>
+    {personalskills.length > 0 ? (
+      <>
         <Title>Personal Skills</Title>
-        <SkillEntry personalskills={[]} />
-    </View>
+        <SkillEntry personalskills={personalskills} />
+      </>
+    ) : (
+      <Title>Add some personal skills</Title>
+    )}
+  </View>
 );
 
 export default Skills;

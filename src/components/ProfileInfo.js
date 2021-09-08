@@ -1,145 +1,177 @@
-import { Fragment, useContext, useState, useEffect } from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import PhotoUploader from "./PhotoUploader"
-import KeyWords from "./KeyWords"
+import { Fragment, useContext, useState, useEffect } from 'react';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import PhotoUploader from './PhotoUploader';
+import KeyWords from './KeyWords';
 import { Formik, Form as FormikForm } from 'formik';
 import { FormikContext } from '../context/FormikState';
-import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
+import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 
 const ProfileInfo = () => {
+  const {
+    firstname,
+    lastname,
+    address,
+    contact,
+    details,
+    personalskills,
+    personalstatement,
+    photo,
+    education,
+    languages,
+    work,
+    techskills,
+    updateProfile
+  } = useContext(FormikContext);
+  const { token } = useContext(AuthContext);
+  const [DBskills, setDBskills] = useState();
+  const [userSkills, setUserSkills] = useState(personalskills);
+  const [AICall, setAICall] = useState(false);
+  const [AIPrompt, setAIPrompt] = useState();
 
-    const { firstname, lastname, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills, updateProfile } = useContext(FormikContext);
-    const { token } = useContext(AuthContext);
-    const [DBskills, setDBskills] = useState();
-    const [userSkills, setUserSkills] = useState(personalskills);
-    const [AICall, setAICall] = useState(false);
-    const [AIPrompt, setAIPrompt] = useState();
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios.get('http://localhost:5000/personalskills', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setDBskills(data);
+    };
+    getData();
+  }, []);
 
-    useEffect(() => {
-        const getData = async () => {
-            const { data } = await axios.get('http://localhost:5000/personalskills', { headers: { Authorization: `Bearer ${token}` } })
-            setDBskills(data)
-        }
-        getData()
-    }, [])
+  const GetPrompt = () => {
+    setAICall(true);
+  };
 
-    const GetPrompt = () => {
-        setAICall(true)
-    }
+  const AddToStatement = () => {
+    let newStatement = personalstatement + AIPrompt.choices[0].text;
+    updateProfile({ personalstatement: newStatement });
+    setAIPrompt('');
+  };
 
-    const AddToStatement = () => {
-        let newStatement = personalstatement + AIPrompt.choices[0].text
-        updateProfile({ personalstatement: newStatement })
-        setAIPrompt("")
-    }
+  if (AICall) {
+    let promptData = { firstname, lastname, education, techskills, details, work };
+    let getAI = async () => {
+      const { data } = await axios.post('http://localhost:5000/ai/summerize', promptData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setAIPrompt(data);
+      console.log(data);
+    };
+    getAI();
+    setAICall(false);
+  }
 
-    if (AICall) {
-        let promptData = { firstname, lastname, education, techskills, details, work }
-        let getAI = async () => {
-            const { data } = await axios.post('http://localhost:5000/ai/summerize', promptData, { headers: { Authorization: `Bearer ${token}` } })
-            setAIPrompt(data)
-            console.log(data)
-        }
-        getAI()
-        setAICall(false)
-    }
+  return (
+    <Fragment>
+      <Formik initialValues={{ contact, personalstatement, details }} onSubmit={values => updateProfile(values)}>
+        {({
+          values: {
+            personalstatement,
+            contact: { email, phone, git, linkedin },
+            details: { jobtitle, dateofbirth }
+          },
+          handleChange,
+          handleSubmit,
+          handleBlur
+        }) => (
+          <Form as={FormikForm}>
+            <Row>
+              <Col>
+                <PhotoUploader />
+              </Col>
+              <Col>
+                <Form.Group className='mb-3' controlId='occupation'>
+                  <Form.Label>Occupation</Form.Label>
+                  <Form.Control
+                    type='occupation'
+                    placeholder='Enter occupation'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={jobtitle}
+                    name='details.jobtitle'
+                  />
+                </Form.Group>
 
-    return (
-        <Fragment>
+                <Form.Group className='mb-3' controlId='links'>
+                  <Form.Label>Linkedin</Form.Label>
+                  <Form.Control
+                    type='links'
+                    placeholder='Enter Linkedin'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={linkedin}
+                    name='contact.linkedin'
+                  />
+                </Form.Group>
 
-            <Formik
-                initialValues={{ contact, personalstatement, details }}
-                onSubmit={(values) => updateProfile(values)}
-            >
-                {({ values: { personalstatement, contact: { email, phone, git, linkedin }, details: { jobtitle, dateofbirth } }, handleChange, handleSubmit, handleBlur }) => (
-                    <Form as={FormikForm}>
-                        <Row>
-                            <Col >
-                                <PhotoUploader />
-                            </Col>
-                            <Col>
-                                <Form.Group className="mb-3" controlId="occupation">
-                                    <Form.Label>Occupation</Form.Label>
-                                    <Form.Control
-                                        type="occupation"
-                                        placeholder="Enter occupation"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={jobtitle}
-                                        name="details.jobtitle"
-                                    />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3" controlId="links">
-                                    <Form.Label>Linkedin</Form.Label>
-                                    <Form.Control
-                                        type="links"
-                                        placeholder="Enter Linkedin"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={linkedin}
-                                        name="contact.linkedin"
-                                    />
-                                </Form.Group>
-
-                                <Form.Group className="mb-3" controlId="links">
-                                    <Form.Label>Github</Form.Label>
-                                    <Form.Control
-                                        type="links"
-                                        placeholder="Enter Github"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={git}
-                                        name="contact.git"
-                                    />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <KeyWords
-                                tags={userSkills}
-                                setTags={setUserSkills}
-                                suggestions={DBskills}
-                                noSuggestionsText='No soft skills found'
-                                onChange={() => console.log('changed')}
-                            />
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Form.Group className="mb-3" controlId="links">
-                                    <Form.Label>Your Personal Profile</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows={3}
-                                        placeholder="Enter your profile information"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={personalstatement}
-                                        name="personalstatement"
-                                    />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <Row className="mb-2">
-                            {AIPrompt ? <Fragment><div>{AIPrompt.choices[0].text}</div> <Button variant="primary" onClick={AddToStatement}>Add to statement</Button></Fragment> : <div>Please fill up you profile and then call for the AI prompt</div>}
-                            <Button variant="primary" onClick={GetPrompt}>Prompt AI</Button>
-                        </Row>
-                        <Row>
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Row>
-                    </Form>
-                )}
-            </Formik>
-
-
-        </Fragment>
-    );
+                <Form.Group className='mb-3' controlId='links'>
+                  <Form.Label>Github</Form.Label>
+                  <Form.Control
+                    type='links'
+                    placeholder='Enter Github'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={git}
+                    name='contact.git'
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Form.Label>Personal skills</Form.Label>
+              <KeyWords
+                tags={userSkills}
+                setTags={setUserSkills}
+                suggestions={DBskills}
+                noSuggestionsText='No soft skills found'
+                onChange={() => console.log('changed')}
+              />
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className='mb-3' controlId='links'>
+                  <Form.Label>Your Personal Profile</Form.Label>
+                  <Form.Control
+                    as='textarea'
+                    rows={3}
+                    placeholder='Enter your profile information'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={personalstatement}
+                    name='personalstatement'
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row className='mb-2'>
+              {AIPrompt ? (
+                <Fragment>
+                  <div>{AIPrompt.choices[0].text}</div>{' '}
+                  <Button variant='primary' onClick={AddToStatement}>
+                    Add to statement
+                  </Button>
+                </Fragment>
+              ) : (
+                <div>Please fill up you profile and then call for the AI prompt</div>
+              )}
+              <Button variant='primary' onClick={GetPrompt}>
+                Prompt AI
+              </Button>
+            </Row>
+            <Row>
+              <Button variant='primary' type='submit'>
+                Submit
+              </Button>
+            </Row>
+          </Form>
+        )}
+      </Formik>
+    </Fragment>
+  );
 };
 
 export default ProfileInfo;
