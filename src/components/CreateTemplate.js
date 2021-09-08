@@ -4,9 +4,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "./Template.css";
 import { FormikContext } from "../context/FormikState";
-
 import ReactToPdf from "react-to-pdf";
-// import "./App.css";
+
 
 const PdfTemplate = () => {
     const {

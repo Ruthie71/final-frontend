@@ -12,10 +12,12 @@ import axios from "axios";
 
 const ProfileInfo = () => {
 
-    const { contact, personalstatement, personalskills, details, updateProfile } = useContext(FormikContext);
+    const { firstname, lastname, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills, updateProfile } = useContext(FormikContext);
     const { token } = useContext(AuthContext);
     const [DBskills, setDBskills] = useState();
     const [userSkills, setUserSkills] = useState(personalskills);
+    const [AICall, setAICall] = useState(false);
+    const [AIPrompt, setAIPrompt] = useState();
 
     useEffect(() => {
         const getData = async () => {
@@ -25,16 +27,30 @@ const ProfileInfo = () => {
         getData()
     }, [])
 
-    const SkillSubmit = () => {
-        console.log(userSkills)
-        updateProfile({ personalskills: userSkills })
+    const GetPrompt = () => {
+        setAICall(true)
+    }
+
+    const AddToStatement = () => {
+        let newStatement = personalstatement + AIPrompt.choices[0].text
+        updateProfile({ personalstatement: newStatement })
+        setAIPrompt("")
+    }
+
+    if (AICall) {
+        let promptData = { firstname, lastname, education, techskills, details, work }
+        let getAI = async () => {
+            const { data } = await axios.post('http://localhost:5000/ai/summerize', promptData, { headers: { Authorization: `Bearer ${token}` } })
+            setAIPrompt(data)
+            console.log(data)
+        }
+        getAI()
+        setAICall(false)
     }
 
     return (
         <Fragment>
-            <Col >
-                <PhotoUploader />
-            </Col>
+
             <Formik
                 initialValues={{ contact, personalstatement, details }}
                 onSubmit={(values) => updateProfile(values)}
@@ -42,6 +58,9 @@ const ProfileInfo = () => {
                 {({ values: { personalstatement, contact: { email, phone, git, linkedin }, details: { jobtitle, dateofbirth } }, handleChange, handleSubmit, handleBlur }) => (
                     <Form as={FormikForm}>
                         <Row>
+                            <Col >
+                                <PhotoUploader />
+                            </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="occupation">
                                     <Form.Label>Occupation</Form.Label>
@@ -81,6 +100,15 @@ const ProfileInfo = () => {
                             </Col>
                         </Row>
                         <Row>
+                            <KeyWords
+                                tags={userSkills}
+                                setTags={setUserSkills}
+                                suggestions={DBskills}
+                                noSuggestionsText='No soft skills found'
+                                onChange={() => console.log('changed')}
+                            />
+                        </Row>
+                        <Row>
                             <Col>
                                 <Form.Group className="mb-3" controlId="links">
                                     <Form.Label>Your Personal Profile</Form.Label>
@@ -96,19 +124,20 @@ const ProfileInfo = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
+                        <Row className="mb-2">
+                            {AIPrompt ? <Fragment><div>{AIPrompt.choices[0].text}</div> <Button variant="primary" onClick={AddToStatement}>Add to statement</Button></Fragment> : <div>Please fill up you profile and then call for the AI prompt</div>}
+                            <Button variant="primary" onClick={GetPrompt}>Prompt AI</Button>
+                        </Row>
+                        <Row>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Row>
                     </Form>
                 )}
             </Formik>
-            <KeyWords
-                tags={userSkills}
-                setTags={setUserSkills}
-                suggestions={DBskills}
-                noSuggestionsText='No soft skills found'
-            />
-            <Button variant="primary" onClick={SkillSubmit}>SkillSubmit</Button>
+
+
         </Fragment>
     );
 };

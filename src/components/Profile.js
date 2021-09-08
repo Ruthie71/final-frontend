@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Template from "./PDFTemplate/Template";
 import { FormikContext } from "../context/FormikState";
+import "./profile.css";
 // import NotFound from "./NotFound";
 
 const Profile = () => {
@@ -30,7 +31,7 @@ const Profile = () => {
             <Col>
                 <Row>
                     <TabSystem md={6} className="block" />
-                    <Row className="mt-5 block justify-content-center">
+                    <Row className="mt-3 block justify-content-center">
                         <Switch>
                             <Route
                                 path={"/profile/contactInfo"}

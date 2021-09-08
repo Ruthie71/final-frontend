@@ -8,7 +8,7 @@ const TabSystem = () => {
 
     return (
         <Fragment>
-            <Nav variant="tabs" defaultActiveKey="profile/contactInfo">
+            <Nav variant="tabs" defaultActiveKey="profile/contactInfo" className="mt-4">
                 <Nav.Link as={NavLink} to={"/profile/contactInfo"}>
                     Contact info
                 </Nav.Link>
