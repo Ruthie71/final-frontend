@@ -7,16 +7,16 @@ import { Formik, Form as FormikForm } from 'formik';
 import { FormikContext } from '../context/FormikState';
 
 const ContactInfo = () => {
-    const { firstname, lastname, address, contact, updateProfile } = useContext(FormikContext);
+    const { firstname, lastname, address, contact, details, updateProfile } = useContext(FormikContext);
 
 
     return (
         <Fragment>
             <Formik
-                initialValues={{ firstname, lastname, address, contact }}
+                initialValues={{ firstname, lastname, address, contact, details  }}
                 onSubmit={(values) => updateProfile(values)}
             >
-                {({ values: { firstname, lastname, address: { city, country, housenr, street, zipcode }, contact: { email, phone, git, linkedin } }, handleChange, handleSubmit, handleBlur }) => (
+                {({ values: { firstname, lastname, address: { city, country, housenr, street, zipcode }, contact: { email, phone, git, linkedin }, details: { jobtitle, dateofbirth } }, handleChange, handleSubmit, handleBlur }) => (
                     <Form as={FormikForm}>
                         <Row>
                             <Col>
@@ -82,19 +82,19 @@ const ContactInfo = () => {
 
                         </Row>
                         <Row>
-                            <Col>
+                        <Col>
                                 <Form.Group
                                     className="mb-3"
-                                    controlId="housenr"
+                                    controlId="dateofbirth"
                                 >
-                                    <Form.Label>House Number</Form.Label>
+                                    <Form.Label>Date of Birth</Form.Label>
                                     <Form.Control
-                                        type="houseNumber"
-                                        placeholder="Enter House Number"
+                                        type="date"
+                                        placeholder="Enter Date of Birth"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={housenr}
-                                        name="address.housenr"
+                                        value={details.dateofbirth}
+                                        name="details.dateofbirth"
                                     />
                                 </Form.Group>
                             </Col>
@@ -114,6 +114,7 @@ const ContactInfo = () => {
                                     />
                                 </Form.Group>
                             </Col>
+                            
 
                             <Form.Group
                                 className="mb-3"
@@ -121,6 +122,22 @@ const ContactInfo = () => {
                             ></Form.Group>
                         </Row>
                         <Row>
+                        <Col>
+                                <Form.Group
+                                    className="mb-3"
+                                    controlId="housenr"
+                                >
+                                    <Form.Label>House Number</Form.Label>
+                                    <Form.Control
+                                        type="houseNumber"
+                                        placeholder="Enter House Number"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={housenr}
+                                        name="address.housenr"
+                                    />
+                                </Form.Group>
+                            </Col>
                             <Col>
                                 <Form.Group
                                     className="mb-3"
@@ -137,6 +154,14 @@ const ContactInfo = () => {
                                     />
                                 </Form.Group>
                             </Col>
+                            
+
+                            <Form.Group
+                                className="mb-3"
+                                controlId="formBasicCheckbox"
+                            ></Form.Group>
+                        </Row>
+                        <Row>
                             <Col>
                                 <Form.Group className="mb-3" controlId="city">
                                     <Form.Label>City</Form.Label>
@@ -150,12 +175,7 @@ const ContactInfo = () => {
                                     />
                                 </Form.Group>
                             </Col>
-
-                            <Form.Group
-                                className="mb-3"
-                                controlId="formBasicCheckbox"
-                            ></Form.Group>
-                        </Row>
+                            <Col>
                         <Form.Group className="mb-3" controlId="country">
                             <Form.Label>Country</Form.Label>
                             <Form.Control
@@ -167,7 +187,8 @@ const ContactInfo = () => {
                                 name="address.country"
                             />
                         </Form.Group>
-
+                        </Col>
+                        </Row>
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>
