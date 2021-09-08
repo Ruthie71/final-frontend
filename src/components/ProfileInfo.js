@@ -3,17 +3,30 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import PhotoUploader from "./PhotoUploader"
-import KeyWords from "./KeyWords"
-import { Formik, Form as FormikForm } from 'formik';
-import { FormikContext } from '../context/FormikState';
+import PhotoUploader from "./PhotoUploader";
+import KeyWords from "./KeyWords";
+import { Formik, Form as FormikForm } from "formik";
+import { FormikContext } from "../context/FormikState";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import WorkExperience from "./PDFTemplate/Experience";
 
 const ProfileInfo = () => {
-
-    const { firstname, lastname, address, contact, details, personalskills, personalstatement, photo, education, languages, work, techskills, updateProfile } = useContext(FormikContext);
+    const {
+        firstname,
+        lastname,
+        address,
+        contact,
+        details,
+        personalskills,
+        personalstatement,
+        photo,
+        education,
+        languages,
+        work,
+        techskills,
+        updateProfile,
+    } = useContext(FormikContext);
     const { token } = useContext(AuthContext);
     const [DBskills, setDBskills] = useState();
     const [userSkills, setUserSkills] = useState(personalskills);
@@ -22,17 +35,23 @@ const ProfileInfo = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const { data } = await axios.get('http://localhost:5000/personalskills', { headers: { Authorization: `Bearer ${token}` } })
-            setDBskills(data)
-        }
-        getData()
-    }, [])
+            const { data } = await axios.get(
+                "http://localhost:5000/personalskills",
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+            setDBskills(data);
+        };
+        getData();
+    }, []);
 
     const GetPrompt = () => {
-        setAICall(true)
-    }
+        setAICall(true);
+    };
 
     const AddToStatement = () => {
+
         let newStatement = personalstatement + " " + AIPrompt.choices[0].text
         updateProfile({ personalstatement: newStatement })
         setAIPrompt("")
@@ -54,16 +73,25 @@ const ProfileInfo = () => {
             getAI()
             setAICall(false)
         }
+
     }
 
     return (
         <Fragment>
-
             <Formik
                 initialValues={{ contact, personalstatement, details }}
                 onSubmit={(values) => updateProfile(values)}
             >
-                {({ values: { personalstatement, contact: { email, phone, git, linkedin }, details: { jobtitle, dateofbirth } }, handleChange, handleSubmit, handleBlur }) => (
+                {({
+                    values: {
+                        personalstatement,
+                        contact: { email, phone, git, linkedin },
+                        details: { jobtitle, dateofbirth },
+                    },
+                    handleChange,
+                    handleSubmit,
+                    handleBlur,
+                }) => (
                     <Form as={FormikForm}>
                         <Row>
                             <Col >
@@ -110,18 +138,21 @@ const ProfileInfo = () => {
                         </Row>
                         <Row>
                         <Form.Label>Peronal Skills</Form.Label>
+
                             <KeyWords
                                 tags={userSkills}
                                 setTags={setUserSkills}
                                 suggestions={DBskills}
-                                noSuggestionsText='No soft skills found'
-                                onChange={() => console.log('changed')}
+                                noSuggestionsText="No soft skills found"
+                                type="personal"
                             />
                         </Row>
                         <Row>
                             <Col>
                                 <Form.Group className="mb-3" controlId="links">
-                                    <Form.Label>Your Personal Profile</Form.Label>
+                                    <Form.Label>
+                                        Your Personal Profile
+                                    </Form.Label>
                                     <Form.Control
                                         as="textarea"
                                         rows={3}
@@ -135,8 +166,10 @@ const ProfileInfo = () => {
                             </Col>
                         </Row>
                         <Row className="mb-2">
+
                             { AIPrompt === "Please fill up the name, education, work experience and techskills" ? <div>{AIPrompt}</div> :  AIPrompt ? <Fragment><div>{AIPrompt}</div> <Button variant="primary" onClick={AddToStatement}>Add to statement</Button></Fragment> : <div>Please fill up you profile and then call for the AI prompt</div>}
                             <Button variant="primary" className="lightbtn" onClick={GetPrompt}>Prompt AI</Button>
+
                         </Row>
 
                             <Button variant="primary" type="submit">
@@ -146,8 +179,6 @@ const ProfileInfo = () => {
                     </Form>
                 )}
             </Formik>
-
-
         </Fragment>
     );
 };

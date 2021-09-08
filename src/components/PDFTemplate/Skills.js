@@ -20,17 +20,23 @@ const SkillEntry = ({ personalskills }) => (
     <View>
         <Text style={styles.title}></Text>
         <List>
-            {personalskills.map((personalskill, i) => (
-                <Item key={i}>{personalskill}</Item>
+            {personalskills.map((personalskill) => (
+                <Item>{personalskill.name}</Item>
             ))}
         </List>
     </View>
 );
 
-const Skills = () => (
+const Skills = ({ personalskills }) => (
     <View>
-        <Title>Personal Skills</Title>
-        <SkillEntry personalskills={[]} />
+        {personalskills.length > 0 ? (
+            <>
+                <Title>Personal Skills</Title>
+                <SkillEntry personalskills={personalskills} />
+            </>
+        ) : (
+            <Title>Add some personal skills</Title>
+        )}
     </View>
 );
 

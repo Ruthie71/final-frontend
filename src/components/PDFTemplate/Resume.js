@@ -35,7 +35,9 @@ const Resume = ({
     lastname,
     contact,
     photo,
+    address,
     education,
+    details,
     work,
     personalskills,
     languages,
@@ -49,8 +51,6 @@ const Resume = ({
             padding: 30,
         },
         container: {
-            backgroundColor: "pink",
-            color: theme,
             flex: 1,
             flexDirection: "row",
             "@media max-width: 400": {
@@ -103,7 +103,13 @@ const Resume = ({
     });
     return (
         <Page {...props} style={styles.page}>
-            <Header firstname={firstname} lastname={lastname} />
+            <Header
+                firstname={firstname}
+                lastname={lastname}
+                contact={contact}
+                details={details}
+                address={address}
+            />
 
             <View style={styles.container}>
                 {/* Left column */}
@@ -112,7 +118,7 @@ const Resume = ({
                         src={`https://cors-anywhere.herokuapp.com/${photo}`}
                         style={styles.image}
                     />
-                    <PersonalProfile />
+                    <PersonalProfile personalstatement={personalstatement} />
 
                     <Experience work={work} />
 

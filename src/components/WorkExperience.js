@@ -11,8 +11,8 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Accordion from "react-bootstrap/Accordion";
-import KeyWords from "./KeyWords"
-import { FormikContext } from '../context/FormikState';
+import KeyWords from "./KeyWords";
+import { FormikContext } from "../context/FormikState";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 
@@ -26,11 +26,16 @@ export const Work = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const { data } = await axios.get('http://localhost:5000/techskills', { headers: { Authorization: `Bearer ${token}` } })
-            setDBTechSkills(data)
-        }
-        getData()
-    }, [])
+            const { data } = await axios.get(
+                "http://localhost:5000/techskills",
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+            setDBTechSkills(data);
+        };
+        getData();
+    }, []);
 
 
     const GetPrompt = (id) => {
@@ -73,14 +78,13 @@ export const Work = () => {
             >
                 {({ values }) => (
                     <Form as={FormikForm}>
-                        <Form.Label>
-                            Tech Skills
-                        </Form.Label>
+                        <Form.Label>Tech Skills</Form.Label>
                         <KeyWords
                             tags={userTechSkills}
                             setTags={setUserTechSkills}
                             suggestions={DBTechSkills}
-                            noSuggestionsText='No tech skills found'
+                            noSuggestionsText="No tech skills found"
+                            type="tech"
                         />
                         <Form.Label>Work Experience</Form.Label>
                         <FieldArray name="work" >
@@ -108,6 +112,7 @@ export const Work = () => {
                                                 <div key={index}>
                                                     <Accordion.Item eventKey={index}>
                                                     <Accordion.Header >{exp.jobtitle ? `${exp.jobtitle} @ ${exp.companyname}` : `New work experience entry #${index+1}`}</Accordion.Header>
+
                                                         <Accordion.Body>
                                                             <Row>
                                                                 <Form.Group
@@ -115,10 +120,13 @@ export const Work = () => {
                                                                     controlId="jobtitle"
                                                                 >
                                                                     <Form.Label>
-                                                                        Job title
+                                                                        Job
+                                                                        title
                                                                     </Form.Label>
                                                                     <Form.Control
-                                                                        as={Field}
+                                                                        as={
+                                                                            Field
+                                                                        }
                                                                         name={`work.${index}.jobtitle`}
                                                                         placeholder="Insert job title"
                                                                         type="text"
@@ -136,10 +144,13 @@ export const Work = () => {
                                                                     controlId="companyname"
                                                                 >
                                                                     <Form.Label>
-                                                                        Company name
+                                                                        Company
+                                                                        name
                                                                     </Form.Label>
                                                                     <Form.Control
-                                                                        as={Field}
+                                                                        as={
+                                                                            Field
+                                                                        }
                                                                         name={`work.${index}.companyname`}
                                                                         placeholder="Insert company name"
                                                                         type="text"
@@ -160,7 +171,9 @@ export const Work = () => {
                                                                         Location
                                                                     </Form.Label>
                                                                     <Form.Control
-                                                                        as={Field}
+                                                                        as={
+                                                                            Field
+                                                                        }
                                                                         name={`work.${index}.location`}
                                                                         placeholder="Insert location"
                                                                         type="text"
@@ -179,10 +192,13 @@ export const Work = () => {
                                                                         controlId="startDate"
                                                                     >
                                                                         <Form.Label>
-                                                                            Start Date
+                                                                            Start
+                                                                            Date
                                                                         </Form.Label>
                                                                         <Form.Control
-                                                                            as={Field}
+                                                                            as={
+                                                                                Field
+                                                                            }
                                                                             name={`work.${index}.startdate`}
                                                                             placeholder="Insert start date"
                                                                             type="date"
@@ -200,10 +216,13 @@ export const Work = () => {
                                                                         controlId="finishdate"
                                                                     >
                                                                         <Form.Label>
-                                                                            Finish date
+                                                                            Finish
+                                                                            date
                                                                         </Form.Label>
                                                                         <Form.Control
-                                                                            as={Field}
+                                                                            as={
+                                                                                Field
+                                                                            }
                                                                             name={`work.${index}.finishdate`}
                                                                             placeholder="Insert finish date"
                                                                             type="date"
@@ -222,10 +241,13 @@ export const Work = () => {
                                                                     controlId="keyachievements"
                                                                 >
                                                                     <Form.Label>
-                                                                        Key achievements
+                                                                        Key
+                                                                        achievements
                                                                     </Form.Label>
                                                                     <Form.Control
-                                                                        as={Field}
+                                                                        as={
+                                                                            Field
+                                                                        }
                                                                         name={`work.${index}.keyachievements`}
                                                                         placeholder="Insert key achievements"
                                                                         component="textarea"
@@ -247,7 +269,9 @@ export const Work = () => {
                                                                     type="button"
                                                                     className="secondary lightbtn"
                                                                     onClick={() =>
-                                                                        remove(index)
+                                                                        remove(
+                                                                            index
+                                                                        )
                                                                     }
                                                                 >
                                                                     Delete
@@ -256,9 +280,8 @@ export const Work = () => {
                                                         </Accordion.Body>
                                                     </Accordion.Item>
                                                 </div>
-
-                                            ))}</Accordion>
-
+                                            ))}
+                                    </Accordion>
                                 </div>
                             )}
                         </FieldArray>

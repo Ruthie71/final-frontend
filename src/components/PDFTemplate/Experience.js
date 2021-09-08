@@ -5,7 +5,6 @@ import List, { Item } from "./List";
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "hotpink",
         flex: 1,
         paddingTop: 30,
         paddingLeft: 15,
@@ -13,6 +12,9 @@ const styles = StyleSheet.create({
             paddingTop: 10,
             paddingLeft: 0,
         },
+    },
+    content: {
+        fontSize: 11,
     },
     entryContainer: {
         marginBottom: 10,
@@ -71,27 +73,25 @@ const ExperienceEntry = ({
 }) => {
     const title = `${companyname} | ${location}`;
     return (
-        <View style={styles.entryContainer}>
-            <View style={styles.headerContainer}>
-                <View style={styles.leftColumn}>
-                    <Text style={styles.title}>{title}</Text>
-                </View>
-                <View style={styles.rightColumn}>
-                    <Text style={styles.leftColumn}>{jobtitle}</Text>
-                    <View style={styles.rightColumn}>
-                        <Text style={styles.date}>
-                            {startdate}
-                            {finishdate}
-                        </Text>
+        <>
+            <View style={styles.entryContainer}>
+                <View style={styles.headerContainer}>
+                    <View style={styles.leftColumn}>
+                        <Text style={styles.title}>{title}</Text>
+                    </View>
+
+                    <View style={styles.leftColumn}>
+                        <Text style={styles.title}>{jobtitle}</Text>
+                        <View style={styles.leftColumn}>
+                            <Text style={styles.date}>
+                                {startdate} / {finishdate}
+                            </Text>
+                        </View>
                     </View>
                 </View>
-                <List>
-                    <Item style={styles.detailContainer}>
-                        {keyachievements}
-                    </Item>
-                </List>
             </View>
-        </View>
+            <Text style={styles.content}>{keyachievements}</Text>
+        </>
     );
 };
 
