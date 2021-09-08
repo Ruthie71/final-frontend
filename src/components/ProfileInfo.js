@@ -9,6 +9,7 @@ import { Formik, Form as FormikForm } from "formik";
 import { FormikContext } from "../context/FormikState";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import WorkExperience from "./PDFTemplate/Experience";
 
 const ProfileInfo = () => {
     const {
@@ -50,33 +51,29 @@ const ProfileInfo = () => {
     };
 
     const AddToStatement = () => {
-        let newStatement = personalstatement + AIPrompt.choices[0].text;
-        updateProfile({ personalstatement: newStatement });
-        setAIPrompt("");
-    };
+
+        let newStatement = personalstatement + " " + AIPrompt.choices[0].text
+        updateProfile({ personalstatement: newStatement })
+        setAIPrompt("")
+    }
 
     if (AICall) {
-        let promptData = {
-            firstname,
-            lastname,
-            education,
-            techskills,
-            details,
-            work,
-        };
-        let getAI = async () => {
-            const { data } = await axios.post(
-                "http://localhost:5000/ai/summerize",
-                promptData,
-                {
-                    headers: { Authorization: `Bearer ${token}` },
-                }
-            );
-            setAIPrompt(data);
-            console.log(data);
-        };
-        getAI();
-        setAICall(false);
+        
+        if (!firstname || !lastname || !education[0] || !techskills || !details || !work[0] ) {
+           const message =  "Please fill up the name, education, work experience and techskills"
+           setAIPrompt(message)
+           setAICall(false)
+        } else {
+            let promptData = { firstname, lastname, education, techskills, details, work }
+            let getAI = async () => {
+            const { data } = await axios.post('http://localhost:5000/ai/summerize', promptData, { headers: { Authorization: `Bearer ${token}` } })
+            setAIPrompt(data.choices[0].text)
+            console.log(data)
+        }
+            getAI()
+            setAICall(false)
+        }
+
     }
 
     return (
@@ -97,14 +94,12 @@ const ProfileInfo = () => {
                 }) => (
                     <Form as={FormikForm}>
                         <Row>
-                            <Col>
+                            <Col >
+                            <Form.Label>Photo</Form.Label>
                                 <PhotoUploader />
                             </Col>
                             <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="occupation"
-                                >
+                                <Form.Group className="mb-4" controlId="occupation">
                                     <Form.Label>Occupation</Form.Label>
                                     <Form.Control
                                         type="occupation"
@@ -116,7 +111,7 @@ const ProfileInfo = () => {
                                     />
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="links">
+                                <Form.Group className="mb-4" controlId="links">
                                     <Form.Label>Linkedin</Form.Label>
                                     <Form.Control
                                         type="links"
@@ -128,7 +123,7 @@ const ProfileInfo = () => {
                                     />
                                 </Form.Group>
 
-                                <Form.Group className="mb-3" controlId="links">
+                                <Form.Group className="mb-4" controlId="links">
                                     <Form.Label>Github</Form.Label>
                                     <Form.Control
                                         type="links"
@@ -142,7 +137,8 @@ const ProfileInfo = () => {
                             </Col>
                         </Row>
                         <Row>
-                            <Form.Label>Personal skills</Form.Label>
+                        <Form.Label>Peronal Skills</Form.Label>
+
                             <KeyWords
                                 tags={userSkills}
                                 setTags={setUserSkills}
@@ -170,31 +166,16 @@ const ProfileInfo = () => {
                             </Col>
                         </Row>
                         <Row className="mb-2">
-                            {AIPrompt ? (
-                                <Fragment>
-                                    <div>{AIPrompt.choices[0].text}</div>{" "}
-                                    <Button
-                                        variant="primary"
-                                        onClick={AddToStatement}
-                                    >
-                                        Add to statement
-                                    </Button>
-                                </Fragment>
-                            ) : (
-                                <div>
-                                    Please fill up you profile and then call for
-                                    the AI prompt
-                                </div>
-                            )}
-                            <Button variant="primary" onClick={GetPrompt}>
-                                Prompt AI
-                            </Button>
+
+                            { AIPrompt === "Please fill up the name, education, work experience and techskills" ? <div>{AIPrompt}</div> :  AIPrompt ? <Fragment><div>{AIPrompt}</div> <Button variant="primary" onClick={AddToStatement}>Add to statement</Button></Fragment> : <div>Please fill up you profile and then call for the AI prompt</div>}
+                            <Button variant="primary" className="lightbtn" onClick={GetPrompt}>Prompt AI</Button>
+
                         </Row>
-                        <Row>
+
                             <Button variant="primary" type="submit">
                                 Submit
                             </Button>
-                        </Row>
+
                     </Form>
                 )}
             </Formik>

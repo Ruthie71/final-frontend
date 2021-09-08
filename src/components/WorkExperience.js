@@ -21,6 +21,8 @@ export const Work = () => {
     const { token } = useContext(AuthContext);
     const [DBTechSkills, setDBTechSkills] = useState();
     const [userTechSkills, setUserTechSkills] = useState(techskills);
+    const [AICall, setAICall] = useState(false);
+    const [AIPrompt, setAIPrompt] = useState();
 
     useEffect(() => {
         const getData = async () => {
@@ -34,6 +36,39 @@ export const Work = () => {
         };
         getData();
     }, []);
+
+
+    const GetPrompt = (id) => {
+        console.log(id)
+        setAICall(id)
+    }
+
+    const AddToStatement = (id) => {
+        const newText = work[id].keyachievements + " " + AIPrompt
+        const newWork = work
+        newWork[id].keyachievements = newText
+        updateProfile({ work : newWork })
+        setAIPrompt("")
+    }
+
+    if (AICall) {
+        if (!work[AICall-1].jobtitle ) {
+           const message =  "Please fill up the job title"
+           setAIPrompt(message)
+           setAICall(false)
+        } else {
+            let values = work[AICall-1].jobtitle
+            let promptData = { values }
+            let getAI = async () => {
+            const { data } = await axios.post('http://localhost:5000/ai/completion', promptData, { headers: { Authorization: `Bearer ${token}` } })
+            setAIPrompt(data.choices[0].text)
+            console.log(data)
+        }
+            getAI()
+            setAICall(false)
+        }
+    }
+
 
     return (
         <Fragment>
@@ -51,12 +86,13 @@ export const Work = () => {
                             noSuggestionsText="No tech skills found"
                             type="tech"
                         />
-                        <FieldArray name="work">
+                        <Form.Label>Work Experience</Form.Label>
+                        <FieldArray name="work" >
                             {({ insert, remove, push }) => (
                                 <div>
                                     <Button
                                         type="button"
-                                        className="secondary mb-2"
+                                        className="secondary mb-2 lightbtn"
                                         onClick={() =>
                                             push({
                                                 jobtitle: "",
@@ -70,19 +106,13 @@ export const Work = () => {
                                     >
                                         Add work experience
                                     </Button>
-                                    <Accordion>
+                                    <Accordion defaultActiveKey="0" className="textcolor">
                                         {values.work.length > 0 &&
-                                            values.work.map((w, index) => (
+                                            values.work.map((exp, index) => (
                                                 <div key={index}>
-                                                    <Accordion.Item
-                                                        eventKey={index}
-                                                    >
-                                                        <Accordion.Header>
-                                                            {w.jobtitle ||
-                                                                `New work entry #${
-                                                                    index + 1
-                                                                }`}
-                                                        </Accordion.Header>
+                                                    <Accordion.Item eventKey={index}>
+                                                    <Accordion.Header >{exp.jobtitle ? `${exp.jobtitle} @ ${exp.companyname}` : `New work experience entry #${index+1}`}</Accordion.Header>
+
                                                         <Accordion.Body>
                                                             <Row>
                                                                 <Form.Group
@@ -220,7 +250,7 @@ export const Work = () => {
                                                                         }
                                                                         name={`work.${index}.keyachievements`}
                                                                         placeholder="Insert key achievements"
-                                                                        type="textarea"
+                                                                        component="textarea"
                                                                         rows={6}
                                                                     />
                                                                     <ErrorMessage
@@ -229,11 +259,15 @@ export const Work = () => {
                                                                         className="field-error"
                                                                     />
                                                                 </Form.Group>
+                                                                <Row className="mb-2">
+                            { AIPrompt === "Please fill up the job title" ? <div style={{color: "black"}}>{AIPrompt}</div> :  AIPrompt ? <Fragment><div style={{color: "black"}}>{AIPrompt}</div> <Button variant="primary" onClick={() =>AddToStatement(index)}>Add to statement</Button></Fragment> : <div style={{color: "black"}}>Please fill up you profile and then call for the AI prompt</div>}
+                            <Button variant="primary" className="lightbtn" onClick={() => GetPrompt(index+1)}>Prompt AI</Button>
+                        </Row>
                                                             </Row>
-                                                            <Row>
+
                                                                 <Button
                                                                     type="button"
-                                                                    className="secondary"
+                                                                    className="secondary lightbtn"
                                                                     onClick={() =>
                                                                         remove(
                                                                             index
@@ -242,7 +276,7 @@ export const Work = () => {
                                                                 >
                                                                     Delete
                                                                 </Button>
-                                                            </Row>
+
                                                         </Accordion.Body>
                                                     </Accordion.Item>
                                                 </div>
@@ -251,7 +285,7 @@ export const Work = () => {
                                 </div>
                             )}
                         </FieldArray>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" className="mt-3">Submit</Button>
                     </Form>
                 )}
             </Formik>

@@ -52,12 +52,13 @@ export const Education = () => {
                             noSuggestionsText="No soft skills found"
                             type="lang"
                         />
+                        <Form.Label>Education</Form.Label>
                         <FieldArray name="education">
                             {({ insert, remove, push }) => (
                                 <div>
                                     <Button
                                         type="button"
-                                        className="secondary  mb-2"
+                                        className="secondary  mb-2 lightbtn"
                                         onClick={() =>
                                             push({
                                                 coursename: "",
@@ -71,18 +72,12 @@ export const Education = () => {
                                     >
                                         Add education experience
                                     </Button>
-                                    <Accordion defaultActiveKey="0">
+
+                                    <Accordion defaultActiveKey="0" className="textcolor">
                                         {values.education.map((ed, index) => (
                                             <div className="row" key={index}>
-                                                <Accordion.Item
-                                                    eventKey={index}
-                                                >
-                                                    <Accordion.Header>
-                                                        {ed.coursename ||
-                                                            `New education entry #${
-                                                                index + 1
-                                                            }`}
-                                                    </Accordion.Header>
+                                                <Accordion.Item eventKey={index}>
+                                                    <Accordion.Header >{ed.coursename ? `${ed.coursename} @ ${ed.academicinstitution}` : `New education entry #${index+1}`}</Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row>
                                                             <Form.Group
@@ -223,10 +218,10 @@ export const Education = () => {
                                                                 />
                                                             </Form.Group>
                                                         </Row>
-                                                        <Row>
+
                                                             <Button
                                                                 type="button"
-                                                                className="secondary"
+                                                                className="secondary lightbtn"
                                                                 onClick={() =>
                                                                     remove(
                                                                         index
@@ -235,7 +230,9 @@ export const Education = () => {
                                                             >
                                                                 Delete
                                                             </Button>
-                                                        </Row>
+
+                                                            
+
                                                     </Accordion.Body>
                                                 </Accordion.Item>
                                             </div>
@@ -244,7 +241,7 @@ export const Education = () => {
                                 </div>
                             )}
                         </FieldArray>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" className="mt-3">Submit</Button>
                     </Form>
                 )}
             </Formik>

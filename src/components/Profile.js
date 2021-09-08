@@ -16,6 +16,7 @@ import './profile.css';
 const Profile = () => {
   const { loadingProfile } = useContext(FormikContext);
 
+
   return (
     <>
       <Col>
