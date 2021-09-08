@@ -16,22 +16,22 @@ const styles = StyleSheet.create({
     },
 });
 
-const SkillEntry = ({ personalskills }) => (
+const TechSkillsEntry = ({ techskills }) => (
     <View>
-        <Text style={styles.title}></Text>
+        <Text style={styles.title}> </Text>
         <List>
-            {personalskills.map((personalskill, i) => (
-                <Item key={i}>{personalskill}</Item>
+            {techskills.map((techskill, i) => (
+                <Item key={i}>{techskill}</Item>
             ))}
         </List>
     </View>
 );
 
-const Skills = () => (
+const TechSkills = () => (
     <View>
-        <Title>Personal Skills</Title>
-        <SkillEntry personalskills={[]} />
+        <Title>Tech Skills</Title>
+        <TechSkillsEntry techskills={[]} />
     </View>
 );
 
-export default Skills;
+export default TechSkills;

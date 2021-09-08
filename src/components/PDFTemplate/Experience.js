@@ -5,6 +5,7 @@ import List, { Item } from "./List";
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: "hotpink",
         flex: 1,
         paddingTop: 30,
         paddingLeft: 15,
@@ -60,8 +61,15 @@ const styles = StyleSheet.create({
     },
 });
 
-const ExperienceEntry = ({ company, details, position, date }) => {
-    const title = `${company} | ${position}`;
+const ExperienceEntry = ({
+    jobtitle,
+    startdate,
+    finishdate,
+    companyname,
+    location,
+    keyachievements,
+}) => {
+    const title = `${companyname} | ${location}`;
     return (
         <View style={styles.entryContainer}>
             <View style={styles.headerContainer}>
@@ -69,116 +77,47 @@ const ExperienceEntry = ({ company, details, position, date }) => {
                     <Text style={styles.title}>{title}</Text>
                 </View>
                 <View style={styles.rightColumn}>
-                    <Text style={styles.date}>{date}</Text>
+                    <Text style={styles.leftColumn}>{jobtitle}</Text>
+                    <View style={styles.rightColumn}>
+                        <Text style={styles.date}>
+                            {startdate}
+                            {finishdate}
+                        </Text>
+                    </View>
                 </View>
-            </View>
-            <List>
-                {details.map((detail, i) => (
-                    <Item key={i} style={styles.detailContainer}>
-                        {detail}
+                <List>
+                    <Item style={styles.detailContainer}>
+                        {keyachievements}
                     </Item>
-                ))}
-            </List>
+                </List>
+            </View>
         </View>
     );
 };
 
-const experienceData = [
-    {
-        company: "Jedi Temple, Coruseant",
-        date: "A long time ago...",
-        details: [
-            "Started a new Jedi Temple in order to train the next generation of Jedi Masters",
-            "Discovered and trained a new generation of Jedi Knights, which he recruited from within the New Republic",
-            "Communicates with decesased Jedi Masters such as Anakin Skywalker, Yoda, Obi-Wan Kenobi in order to learn the secrets of the Jedi Order",
-        ],
-        position: "Head Jedi Master",
-    },
-    {
-        company: "Jedi Temple, Coruseant",
-        date: "A long time ago...",
-        details: [
-            "Started a new Jedi Temple in order to train the next generation of Jedi Masters",
-            "Discovered and trained a new generation of Jedi Knights, which he recruited from within the New Republic",
-            "Communicates with decesased Jedi Masters such as Anakin Skywalker, Yoda, Obi-Wan Kenobi in order to learn the secrets of the Jedi Order",
-        ],
-        position: "Head Jedi Master",
-    },
-    {
-        company: "Jedi Temple, Coruseant",
-        date: "A long time ago...",
-        details: [
-            "Started a new Jedi Temple in order to train the next generation of Jedi Masters",
-            "Discovered and trained a new generation of Jedi Knights, which he recruited from within the New Republic",
-            "Communicates with decesased Jedi Masters such as Anakin Skywalker, Yoda, Obi-Wan Kenobi in order to learn the secrets of the Jedi Order",
-        ],
-        position: "Head Jedi Master",
-    },
-    {
-        company: "Jedi Temple, Coruseant",
-        date: "A long time ago...",
-        details: [
-            "Started a new Jedi Temple in order to train the next generation of Jedi Masters",
-            "Discovered and trained a new generation of Jedi Knights, which he recruited from within the New Republic",
-            "Communicates with decesased Jedi Masters such as Anakin Skywalker, Yoda, Obi-Wan Kenobi in order to learn the secrets of the Jedi Order",
-        ],
-        position: "Head Jedi Master",
-    },
-    {
-        company: "Jedi Temple, Coruseant",
-        date: "A long time ago...",
-        details: [
-            "Started a new Jedi Temple in order to train the next generation of Jedi Masters",
-            "Discovered and trained a new generation of Jedi Knights, which he recruited from within the New Republic",
-            "Communicates with decesased Jedi Masters such as Anakin Skywalker, Yoda, Obi-Wan Kenobi in order to learn the secrets of the Jedi Order",
-        ],
-        position: "Head Jedi Master",
-    },
-    {
-        company: "Rebel Alliance",
-        date: "A long time ago...",
-        details: [
-            "Lead legions of troops into battle while demonstrating bravery, competence and honor",
-            "Created complicated battle plans in conjunction with other Rebel leaders in order to ensure the greatest chance of success",
-            "Defeated Darth Vader in single-combat, and convinced him to betray his mentor, the Emperor",
-        ],
-        position: "General",
-    },
-    {
-        company: "Rebel Alliance",
-        date: "A long time ago...",
-        details: [
-            "Destroyed the Death Star by using the force to find its only weakness and delivering a torpedo into the center of the ship",
-            "Commanded of squadron of X-Wings into battle",
-            "Defeated an enemy AT-AT single handedly after his ship was destroyed",
-            "Awarded a medal for valor and bravery in battle for his successful destruction of the Death Star",
-        ],
-        position: "Lieutenant Commander",
-    },
-    {
-        company: "Tatooine Moisture Refinery",
-        date: "A long time ago...",
-        details: [
-            "Replaced damaged power converters",
-            "Performed menial labor thoughout the farm in order to ensure its continued operation",
-        ],
-        position: "Moisture Farmer",
-    },
-];
-
-const Experience = () => (
+const WorkExperience = ({ work }) => (
     <View style={styles.container}>
-        <Title>Experience</Title>
-        {experienceData.map(({ company, date, details, position }) => (
-            <ExperienceEntry
-                company={company}
-                date={date}
-                details={details}
-                key={company + position}
-                position={position}
-            />
-        ))}
+        <Title>Work Experience</Title>
+        {work.map(
+            ({
+                jobtitle,
+                startdate,
+                finishdate,
+                companyname,
+                location,
+                keyachievements,
+            }) => (
+                <ExperienceEntry
+                    jobtitle={jobtitle}
+                    startdate={startdate}
+                    finishdate={finishdate}
+                    location={location}
+                    companyname={companyname}
+                    keyachievements={keyachievements}
+                />
+            )
+        )}
     </View>
 );
 
-export default Experience;
+export default WorkExperience;

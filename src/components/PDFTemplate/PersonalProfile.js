@@ -61,61 +61,31 @@ const styles = StyleSheet.create({
     },
 });
 
-const EducationEntry = ({
-    coursename,
-    startdate,
-    finishdate,
-    location,
-    academicinstitute,
-    coursecontent,
-}) => {
-    const title = `${coursename} | ${location}`;
+const PersonalProfileEntry = ({ personalstatement }) => {
     return (
         <View style={styles.entryContainer}>
             <View style={styles.headerContainer}>
                 <View style={styles.leftColumn}>
-                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.title}></Text>
                 </View>
-                <View style={styles.rightColumn}>
-                    <Text style={styles.leftColumn}>{academicinstitute}</Text>
-                    <View style={styles.rightColumn}>
-                        <Text style={styles.date}>
-                            {startdate}
-                            {finishdate}
-                        </Text>
-                    </View>
-                </View>
+                <View style={styles.rightColumn}></View>
                 <List>
-                    <Item style={styles.detailContainer}>{coursecontent}</Item>
+                    <Item style={styles.detailContainer}>
+                        {personalstatement}
+                    </Item>
                 </List>
             </View>
         </View>
     );
 };
 
-const Education = ({ education }) => (
+const PersonalProfile = ({ personalstatement }) => (
     <View style={styles.container}>
-        <Title>Education</Title>
-        {education.map(
-            ({
-                coursename,
-                startdate,
-                finishdate,
-                location,
-                academicinstitute,
-                coursecontent,
-            }) => (
-                <EducationEntry
-                    coursename={coursename}
-                    startdate={startdate}
-                    finishdate={finishdate}
-                    location={location}
-                    academicinstitute={academicinstitute}
-                    coursecontent={coursecontent}
-                />
-            )
-        )}
+        <Title>Personal Profile</Title>
+        {personalstatement.map(({ personalstatement }) => (
+            <PersonalProfileEntry personalstatement={personalstatement} />
+        ))}
     </View>
 );
 
-export default Education;
+export default PersonalProfile;

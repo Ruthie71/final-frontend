@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ({ firstname, lastname }) => (
+export default ({ firstname, lastname, jobtitle }) => (
     <View style={styles.container}>
         <View style={styles.detailColumn}>
             <Text style={styles.name}>
                 {firstname} {lastname}
             </Text>
-            <Text style={styles.subtitle}>Jedi Master</Text>
+            <Text style={styles.subtitle}>Name</Text>
         </View>
         <View style={styles.linkColumn}>
             <Link href="mailto:luke@theforce.com" style={styles.link}>
