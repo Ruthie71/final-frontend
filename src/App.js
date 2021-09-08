@@ -16,6 +16,7 @@ import FormikState from "./context/FormikState";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
+import "./app.css";
 
 const App = () => {
     return (

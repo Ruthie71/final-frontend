@@ -19,7 +19,7 @@ const Profile = () => {
         <div>We are preparing your template</div>
     ) : (
         <>
-            <Col>
+            {/* <Col>
                 <Row className="justify-content-center">
                     <Col md={8}>
                         <Row style={{ minHeight: "800px" }}>
@@ -27,7 +27,7 @@ const Profile = () => {
                         </Row>
                     </Col>
                 </Row>
-            </Col>
+            </Col> */}
             <Col>
                 <Row>
                     <TabSystem md={6} className="block" />

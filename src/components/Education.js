@@ -52,12 +52,13 @@ export const Education = () => {
                             suggestions={DBLanguage}
                             noSuggestionsText='No soft skills found'
                         />
+                        <Form.Label>Education</Form.Label>
                         <FieldArray name="education">
                             {({ insert, remove, push }) => (
                                 <div>
                                     <Button
                                         type="button"
-                                        className="secondary  mb-2"
+                                        className="secondary  mb-2 lightbtn"
                                         onClick={() =>
                                             push({
                                                 coursename: "",
@@ -71,11 +72,11 @@ export const Education = () => {
                                     >
                                         Add education experience
                                     </Button>
-                                    <Accordion>
-                                        {values.education.map((education, index) => (
+                                    <Accordion defaultActiveKey="0" className="textcolor">
+                                        {values.education.map((ed, index) => (
                                             <div className="row" key={index}>
                                                 <Accordion.Item eventKey={index}>
-                                                    <Accordion.Header >{`education.${index}.coursename`}</Accordion.Header>
+                                                    <Accordion.Header >{ed.coursename ? `${ed.coursename} @ ${ed.academicinstitution}` : `New education entry #${index+1}`}</Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row>
                                                         <Form.Group
@@ -206,17 +207,19 @@ export const Education = () => {
                                                             />
                                                         </Form.Group>
                                                         </Row>
-                                                        <Row>
+
                                                             <Button
                                                                 type="button"
-                                                                className="secondary"
+                                                                className="secondary lightbtn"
                                                                 onClick={() =>
                                                                     remove(index)
                                                                 }
                                                             >
                                                                 Delete
                                                             </Button>
-                                                        </Row>
+
+                                                            
+
                                                     </Accordion.Body>
                                                 </Accordion.Item>
 
@@ -226,7 +229,7 @@ export const Education = () => {
                                 </div>
                             )}
                         </FieldArray>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" className="mt-3">Submit</Button>
                     </Form>
                 )}
             </Formik>
