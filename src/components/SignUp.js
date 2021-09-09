@@ -7,7 +7,8 @@ import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
 import { AuthContext } from '../context/AuthContext';
-import { Container } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+
 
 const SignUp = () => {
   const location = useLocation();
@@ -36,10 +37,9 @@ const SignUp = () => {
     );
   if (loading) return <Spinner animation='border' variant='primary' />;
   return (
-    <div>
-      <div class='p-3 mb-2 bg-primary text-white'>
-        <Container>
-          <Col md={4}>
+
+        <Container className="d-flex justify-content-center align-items-center mt-5">
+          <Col md={4} >
             <Row>
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <Row>{error && <Alert variant='danger'>{error}</Alert>}</Row>
@@ -85,8 +85,7 @@ const SignUp = () => {
             </Row>
           </Col>
         </Container>
-      </div>
-    </div>
+
   );
 };
 

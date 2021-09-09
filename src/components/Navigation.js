@@ -12,7 +12,7 @@ const Navigation = () => {
     <Navbar bg='light' expand='lg'>
       <Container>
         <Navbar.Brand as={Link} to='/'>
-          Logo
+          CV Source
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='basic-navbar-nav' />
         <Navbar.Collapse id='basic-navbar-nav'>

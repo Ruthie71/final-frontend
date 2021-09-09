@@ -35,7 +35,7 @@ const LogIn = () => {
     );
   if (loading) return <Spinner animation='border' variant='primary' />;
   return (
-    <Col md={4}>
+    <Col md={4} className="d-flex justify-content-center align-items-center mt-5">
       <Row>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Row>{error && <Alert variant='danger'>{error}</Alert>}</Row>

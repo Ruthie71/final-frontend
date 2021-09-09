@@ -52,7 +52,7 @@ const ProfileInfo = () => {
 
     const AddToStatement = () => {
 
-        let newStatement = personalstatement + " " + AIPrompt.choices[0].text
+        let newStatement = personalstatement + " " + AIPrompt
         updateProfile({ personalstatement: newStatement })
         setAIPrompt("")
     }
@@ -155,7 +155,7 @@ const ProfileInfo = () => {
                                     </Form.Label>
                                     <Form.Control
                                         as="textarea"
-                                        rows={3}
+                                        rows={6}
                                         placeholder="Enter your profile information"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
