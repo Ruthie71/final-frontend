@@ -4,7 +4,6 @@ import Title from './Title';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingTop: 30,
     paddingLeft: 15,
     '@media max-width: 400': {
@@ -17,11 +16,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const PersonalProfile = ({ personalstatement }) => (
+const Profile = ({ personalstatement }) => (
   <View style={styles.container}>
-    <Title>Personal Profile</Title>
+    <Title>Personal profile</Title>
     <Text style={styles.content}>{personalstatement}</Text>
   </View>
 );
 
-export default PersonalProfile;
+export default Profile;

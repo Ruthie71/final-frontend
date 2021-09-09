@@ -1,10 +1,9 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Document, PDFViewer } from '@react-pdf/renderer';
 import Resume from './Resume';
 import { FormikContext } from '../../context/FormikState';
 
-const Template = () => {
-  const [theme, setTheme] = useState('blue');
+const Template = ({ theme }) => {
   const {
     user,
     firstname,
@@ -43,17 +42,6 @@ const Template = () => {
           />
         </Document>
       </PDFViewer>
-      {/* <div>
-                <Button variant="danger" onClick={() => setTheme("red")}>
-                    R
-                </Button>
-                <Button variant="success" onClick={() => setTheme("green")}>
-                    G
-                </Button>
-                <Button variant="info" onClick={() => setTheme("blue")}>
-                    B
-                </Button>
-            </div> */}
     </>
   );
 };

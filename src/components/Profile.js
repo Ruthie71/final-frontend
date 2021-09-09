@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import TabSystem from './TabSystem';
 import ContactInfo from './ContactInfo';
@@ -15,13 +15,35 @@ import './profile.css';
 
 const Profile = () => {
   const { loadingProfile } = useContext(FormikContext);
-
+  const [theme, setTheme] = useState({ backgroundColor: '#17a2b8', color: 'white' });
 
   return (
     <>
-      <Col>
+      <Col md={1}>
+        <Row className='flex-column'>
+          <div
+            onClick={() => setTheme({ backgroundColor: '#17a2b8', color: 'white' })}
+            style={{ cursor: 'pointer', backgroundColor: '#17a2b8', color: 'white' }}
+          >
+            Summer
+          </div>
+          <div
+            onClick={() => setTheme({ backgroundColor: '#DC143C', color: 'white' })}
+            style={{ cursor: 'pointer', backgroundColor: '#DC143C', color: 'white' }}
+          >
+            Winter
+          </div>
+          <div
+            onClick={() => setTheme({ backgroundColor: '#1A5653', color: 'white' })}
+            style={{ cursor: 'pointer', backgroundColor: '#1A5653', color: 'white' }}
+          >
+            Peace
+          </div>
+        </Row>
+      </Col>
+      <Col md={4}>
         <Row className='justify-content-center align-items-center'>
-          <Col md={8}>
+          <Col>
             {loadingProfile ? (
               <Row style={{ height: '800px' }} className='justify-content-center align-items-center'>
                 <Spinner animation='border' role='status'>
@@ -29,14 +51,16 @@ const Profile = () => {
                 </Spinner>
               </Row>
             ) : (
+
               <Row className='mt-4' style={{ height: '800px' }}>
-                <Template />
+                <Template theme={theme} />
+
               </Row>
             )}
           </Col>
         </Row>
       </Col>
-      <Col>
+      <Col md={5}>
         <Row>
           <TabSystem md={6} className='block' />
           <Row className='mt-3 mb-5 pr-5 block justify-content-center' style={{ height: '800px' }}>

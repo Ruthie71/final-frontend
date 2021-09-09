@@ -1,11 +1,9 @@
 import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
 import Title from './Title';
-import List, { Item } from './List';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingTop: 30,
     paddingLeft: 15,
     '@media max-width: 400': {
@@ -13,11 +11,11 @@ const styles = StyleSheet.create({
       paddingLeft: 0
     }
   },
-  entryContainer: {
-    marginBottom: 10
-  },
   content: {
     fontSize: 11
+  },
+  entryContainer: {
+    marginBottom: 10
   },
   date: {
     fontSize: 11,
@@ -43,7 +41,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato'
   },
   headerContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginBottom: 10
   },
   leftColumn: {
@@ -64,26 +62,25 @@ const styles = StyleSheet.create({
 });
 
 const EducationEntry = ({ coursename, startdate, finishdate, location, academicinstitution, coursecontent }) => {
-  const title = `${coursename} | ${location}`;
+  const title = `${academicinstitution} | ${location}`;
   return (
     <>
       <View style={styles.entryContainer}>
         <View style={styles.headerContainer}>
           <View style={styles.leftColumn}>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{title} dd</Text>
           </View>
-          <View style={styles.rightColumn}>
-            <Text style={styles.leftColumn}>{academicinstitution}</Text>
-            <View style={styles.rightColumn}>
+          <View style={styles.leftColumn}>
+            <Text style={styles.title}>{coursename}</Text>
+            <View style={styles.leftColumn}>
               <Text style={styles.date}>
-                {startdate}
-                {finishdate}
+                {startdate} / {finishdate}
               </Text>
             </View>
           </View>
         </View>
+        <Text style={styles.content}>{coursecontent}</Text>
       </View>
-      <Text style={styles.content}>{coursecontent}</Text>
     </>
   );
 };
@@ -91,8 +88,9 @@ const EducationEntry = ({ coursename, startdate, finishdate, location, academici
 const Education = ({ education }) => (
   <View style={styles.container}>
     <Title>Education</Title>
-    {education.map(({ coursename, startdate, finishdate, location, academicinstitution, coursecontent }) => (
+    {education.map(({ coursename, startdate, finishdate, location, academicinstitution, coursecontent }, i) => (
       <EducationEntry
+        key={i}
         coursename={coursename}
         startdate={startdate}
         finishdate={finishdate}
