@@ -64,6 +64,7 @@ const AuthState = ({ children }) => {
 
     const signOut = () => {
         localStorage.removeItem("token");
+        setToken(null)
         setIsAuthenticated(false);
     };
 

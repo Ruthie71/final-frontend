@@ -5,7 +5,6 @@ import { FormikContext } from '../../context/FormikState';
 
 const Template = ({ theme }) => {
   const {
-    user,
     firstname,
     lastname,
     address,

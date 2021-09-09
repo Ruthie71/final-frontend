@@ -9,20 +9,17 @@ import { Formik, Form as FormikForm } from 'formik';
 import { FormikContext } from '../context/FormikState';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
-import WorkExperience from './PDFTemplate/Experience';
+
 
 const ProfileInfo = () => {
   const {
     firstname,
     lastname,
-    address,
     contact,
     details,
     personalskills,
     personalstatement,
-    photo,
     education,
-    languages,
     work,
     techskills,
     updateProfile
@@ -41,7 +38,8 @@ const ProfileInfo = () => {
       setDBskills(data);
     };
     getData();
-  }, []);
+    return () => setDBskills()
+  }, [token]);
 
   const GetPrompt = () => {
     setAICall(true);
@@ -146,7 +144,7 @@ const ProfileInfo = () => {
                   <Form.Label>Your Personal Profile</Form.Label>
                   <Form.Control
                     as='textarea'
-                    rows={3}
+                    rows={6}
                     placeholder='Enter your profile information'
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -158,23 +156,23 @@ const ProfileInfo = () => {
             </Row>
             <Row className='mb-2'>
               {AIPrompt === 'Please fill up the name, education, work experience and techskills' ? (
-                <div>{AIPrompt}</div>
+                <div className="mb-2">{AIPrompt}</div>
               ) : AIPrompt ? (
                 <Fragment>
-                  <div>{AIPrompt}</div>{' '}
-                  <Button variant='primary' onClick={AddToStatement}>
+                  <div className="mb-2">{AIPrompt}</div>{' '}
+                  <Button variant='primary' className=" mb-2 mx-2 px-0" onClick={AddToStatement}>
                     Add to statement
                   </Button>
                 </Fragment>
               ) : (
-                <div>Please fill up you profile and then call for the AI prompt</div>
+                <div className="mb-2">Please fill up you profile and then call for the AI prompt</div>
               )}
-              <Button variant='primary' className='lightbtn' onClick={GetPrompt}>
+              <Button variant='primary' className='lightbtn mb-0 mx-2 px-0' onClick={GetPrompt}>
                 Prompt AI
               </Button>
             </Row>
 
-            <Button variant='primary' type='submit'>
+            <Button variant='primary' type='submit' className="mt-3 mb-5">
               Submit
             </Button>
           </Form>

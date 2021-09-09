@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import Accordion from "react-bootstrap/Accordion";
 import KeyWords from "./KeyWords";
 import { FormikContext } from "../context/FormikState";
@@ -23,6 +24,8 @@ export const Work = () => {
     const [userTechSkills, setUserTechSkills] = useState(techskills);
     const [AICall, setAICall] = useState(false);
     const [AIPrompt, setAIPrompt] = useState();
+    const [loader, setLoader] = useState(false);
+
 
     useEffect(() => {
         const getData = async () => {
@@ -35,11 +38,12 @@ export const Work = () => {
             setDBTechSkills(data);
         };
         getData();
-    }, []);
+        return () => setDBTechSkills()
+    }, [token]);
 
 
     const GetPrompt = (id) => {
-        console.log(id)
+        setLoader(true)
         setAICall(id)
     }
 
@@ -47,25 +51,26 @@ export const Work = () => {
         const newText = work[id].keyachievements + " " + AIPrompt
         const newWork = work
         newWork[id].keyachievements = newText
-        updateProfile({ work : newWork })
+        updateProfile({ work: newWork })
         setAIPrompt("")
     }
 
     if (AICall) {
-        if (!work[AICall-1].jobtitle ) {
-           const message =  "Please fill up the job title"
-           setAIPrompt(message)
-           setAICall(false)
+        if (!work[AICall - 1].jobtitle) {
+            const message = "Please fill up the job title"
+            setAIPrompt(message)
+            setAICall(false)
         } else {
-            let values = work[AICall-1].jobtitle
+            let values = work[AICall - 1].jobtitle
             let promptData = { values }
             let getAI = async () => {
-            const { data } = await axios.post('http://localhost:5000/ai/completion', promptData, { headers: { Authorization: `Bearer ${token}` } })
-            setAIPrompt(data.choices[0].text)
-            console.log(data)
-        }
+                const { data } = await axios.post('http://localhost:5000/ai/completion', promptData, { headers: { Authorization: `Bearer ${token}` } })
+                setAIPrompt(data.choices[0].text)
+                console.log(data)
+            }
             getAI()
             setAICall(false)
+            setLoader(false)
         }
     }
 
@@ -92,7 +97,7 @@ export const Work = () => {
                                 <div>
                                     <Button
                                         type="button"
-                                        className="secondary mb-2 lightbtn"
+                                        className="secondary mb-3 lightbtn"
                                         onClick={() =>
                                             push({
                                                 jobtitle: "",
@@ -110,8 +115,8 @@ export const Work = () => {
                                         {values.work.length > 0 &&
                                             values.work.map((exp, index) => (
                                                 <div key={index}>
-                                                    <Accordion.Item eventKey={index}>
-                                                    <Accordion.Header >{exp.jobtitle ? `${exp.jobtitle} @ ${exp.companyname}` : `New work experience entry #${index+1}`}</Accordion.Header>
+                                                    <Accordion.Item eventKey={index} >
+                                                        <Accordion.Header >{exp.jobtitle ? `${exp.jobtitle} @ ${exp.companyname}` : `New work experience entry #${index + 1}`}</Accordion.Header>
 
                                                         <Accordion.Body>
                                                             <Row>
@@ -260,22 +265,23 @@ export const Work = () => {
                                                                     />
                                                                 </Form.Group>
                                                                 <Row className="mb-2">
-                            { AIPrompt === "Please fill up the job title" ? <div style={{color: "black"}}>{AIPrompt}</div> :  AIPrompt ? <Fragment><div style={{color: "black"}}>{AIPrompt}</div> <Button variant="primary" onClick={() =>AddToStatement(index)}>Add to statement</Button></Fragment> : <div style={{color: "black"}}>Please fill up you profile and then call for the AI prompt</div>}
-                            <Button variant="primary" className="lightbtn" onClick={() => GetPrompt(index+1)}>Prompt AI</Button>
-                        </Row>
+                                                                    {loader ? <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner> : <div></div>}
+                                                                    {AIPrompt === "Please fill up the job title" ? <div style={{ color: "#554e57" }} className="mb-2">{AIPrompt}</div> : AIPrompt ? <Fragment><div style={{ color: "#554e57" }}>{AIPrompt}</div> <Button variant="primary" onClick={() => AddToStatement(index)} className="mb-2">Add to statement</Button></Fragment> : <div style={{ color: "#554e57" }} className="mb-2">Please fill up you profile and then call for the AI prompt</div>}
+                                                                    <Button variant="primary" className="lightbtn" onClick={() => GetPrompt(index + 1)}>Prompt AI</Button>
+                                                                </Row>
                                                             </Row>
 
-                                                                <Button
-                                                                    type="button"
-                                                                    className="secondary lightbtn"
-                                                                    onClick={() =>
-                                                                        remove(
-                                                                            index
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    Delete
-                                                                </Button>
+                                                            <Button
+                                                                type="button"
+                                                                className="secondary lightbtn"
+                                                                onClick={() =>
+                                                                    remove(
+                                                                        index
+                                                                    )
+                                                                }
+                                                            >
+                                                                Delete
+                                                            </Button>
 
                                                         </Accordion.Body>
                                                     </Accordion.Item>
@@ -285,7 +291,7 @@ export const Work = () => {
                                 </div>
                             )}
                         </FieldArray>
-                        <Button type="submit" className="mt-3">Submit</Button>
+                        <Button type="submit" className="mt-3 mb-5">Submit</Button>
                     </Form>
                 )}
             </Formik>

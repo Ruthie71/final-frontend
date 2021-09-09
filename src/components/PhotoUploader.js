@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
-import "./profile.css";
-
 import { FormikContext } from '../context/FormikState';
 
 
@@ -16,11 +14,7 @@ const PhotoUploader = () => {
 
     };
     const {
-      register,
-      handleSubmit,
       formState,
-      reset,
-      control,
       setValue,
       setError: formError
     } = useForm({ defaultValues });

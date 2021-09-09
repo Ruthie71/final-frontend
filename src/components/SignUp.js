@@ -78,7 +78,7 @@ const SignUp = () => {
                     {errors.passwordConfirm && <Alert variant='danger'>{errors.passwordConfirm.message}</Alert>}
                   </Form.Group>
                 </Row>
-                <button type='submit' class='btn btn-warning'>
+                <button type='submit' className='btn btn-warning'>
                   Submit
                 </button>
               </Form>
