@@ -31,7 +31,7 @@ const KeyWords = ({ tags, setTags, suggestions, noSuggestionsText, type }) => {
     };
 
     return (
-        <div style={{ margin: 10 }}>
+        <div className="mb-1 mt-1">
             <ReactTags
                 ref={reactTags}
                 tags={tags}

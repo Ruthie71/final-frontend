@@ -67,7 +67,7 @@ const ExperienceEntry = ({ jobtitle, startdate, finishdate, companyname, locatio
       <View style={styles.entryContainer}>
         <View style={styles.headerContainer}>
           <View style={styles.leftColumn}>
-            <Text style={styles.title}>{title} dd</Text>
+            <Text style={styles.title}>{title}</Text>
           </View>
           <View style={styles.leftColumn}>
             <Text style={styles.title}>{jobtitle}</Text>

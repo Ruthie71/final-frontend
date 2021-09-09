@@ -1,6 +1,6 @@
 import { Link, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 
-export default ({ firstname, lastname, contact, details, address, theme, photo }) => {
+const Header = ({ firstname, lastname, contact, details, address, theme, photo }) => {
   const styles = StyleSheet.create({
     container: {
       padding: 30,
@@ -81,3 +81,5 @@ export default ({ firstname, lastname, contact, details, address, theme, photo }
     </View>
   );
 };
+
+export default Header

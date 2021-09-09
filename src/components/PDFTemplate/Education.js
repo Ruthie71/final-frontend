@@ -68,7 +68,7 @@ const EducationEntry = ({ coursename, startdate, finishdate, location, academici
       <View style={styles.entryContainer}>
         <View style={styles.headerContainer}>
           <View style={styles.leftColumn}>
-            <Text style={styles.title}>{title} dd</Text>
+            <Text style={styles.title}>{title}</Text>
           </View>
           <View style={styles.leftColumn}>
             <Text style={styles.title}>{coursename}</Text>

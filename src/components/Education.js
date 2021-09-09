@@ -31,10 +31,10 @@ export const Education = () => {
                 }
             );
             setDBLanguage(data);
-            console.log(data);
         };
         getData();
-    }, []);
+        return () => setDBLanguage()
+    }, [token]);
 
     return (
         <Fragment>
@@ -58,7 +58,7 @@ export const Education = () => {
                                 <div>
                                     <Button
                                         type="button"
-                                        className="secondary  mb-2 lightbtn"
+                                        className="secondary  mb-3 lightbtn"
                                         onClick={() =>
                                             push({
                                                 coursename: "",
@@ -76,7 +76,7 @@ export const Education = () => {
                                     <Accordion defaultActiveKey="0" className="textcolor">
                                         {values.education.map((ed, index) => (
                                             <div className="row" key={index}>
-                                                <Accordion.Item eventKey={index}>
+                                                <Accordion.Item eventKey={index} className="mx-2">
                                                     <Accordion.Header >{ed.coursename ? `${ed.coursename} @ ${ed.academicinstitution}` : `New education entry #${index+1}`}</Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row>
@@ -241,7 +241,7 @@ export const Education = () => {
                                 </div>
                             )}
                         </FieldArray>
-                        <Button type="submit" className="mt-3">Submit</Button>
+                        <Button type="submit" className="mt-3 mb-5">Submit</Button>
                     </Form>
                 )}
             </Formik>

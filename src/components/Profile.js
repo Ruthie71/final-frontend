@@ -10,8 +10,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Template from './PDFTemplate/Template';
 import { FormikContext } from '../context/FormikState';
-import './profile.css';
-// import NotFound from "./NotFound";
 
 const Profile = () => {
   const { loadingProfile } = useContext(FormikContext);
@@ -25,19 +23,19 @@ const Profile = () => {
             onClick={() => setTheme({ backgroundColor: '#17a2b8', color: 'white' })}
             style={{ cursor: 'pointer', backgroundColor: '#17a2b8', color: 'white' }}
           >
-            Summer
+            Silicon
           </div>
           <div
             onClick={() => setTheme({ backgroundColor: '#DC143C', color: 'white' })}
             style={{ cursor: 'pointer', backgroundColor: '#DC143C', color: 'white' }}
           >
-            Winter
+            Code
           </div>
           <div
             onClick={() => setTheme({ backgroundColor: '#1A5653', color: 'white' })}
             style={{ cursor: 'pointer', backgroundColor: '#1A5653', color: 'white' }}
           >
-            Peace
+            Climate
           </div>
         </Row>
       </Col>
@@ -63,7 +61,7 @@ const Profile = () => {
       <Col md={5}>
         <Row>
           <TabSystem md={6} className='block' />
-          <Row className='mt-3 mb-5 pr-5 block justify-content-center' style={{ height: '800px' }}>
+          <Row className='mt-3 mb-5 pr-5 block justify-content-center' >
             <Switch>
               <Route path={'/profile/contactInfo'} component={() => <ContactInfo />} />
               <Route path={'/profile/profileInfo'} component={() => <ProfileInfo />} />
