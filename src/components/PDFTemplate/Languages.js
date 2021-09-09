@@ -4,15 +4,12 @@ import Title from './Title';
 import List, { Item } from './List';
 
 const styles = StyleSheet.create({
-  title: {
-    fontFamily: 'Lato Bold',
-    fontSize: 11,
+  container: {
     marginBottom: 10
   },
-  skills: {
-    fontFamily: 'Lato',
-    fontSize: 10,
-    marginBottom: 10
+  title: {
+    fontFamily: 'Lato Bold',
+    fontSize: 11
   }
 });
 
@@ -20,15 +17,15 @@ const LanguageEntry = ({ languages }) => (
   <View>
     <Text style={styles.title}></Text>
     <List>
-      {languages.map(language => (
-        <Item>{language.name}</Item>
+      {languages.map((language, i) => (
+        <Item key={i}>{language.name}</Item>
       ))}
     </List>
   </View>
 );
 
 const Languages = ({ languages }) => (
-  <View>
+  <View style={styles.container}>
     {languages.length > 0 ? (
       <>
         <Title>Languages</Title>
