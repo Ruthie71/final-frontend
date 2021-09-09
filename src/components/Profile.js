@@ -51,8 +51,10 @@ const Profile = () => {
                 </Spinner>
               </Row>
             ) : (
-              <Row style={{ height: '800px' }}>
+
+              <Row className='mt-4' style={{ height: '800px' }}>
                 <Template theme={theme} />
+
               </Row>
             )}
           </Col>
@@ -61,7 +63,7 @@ const Profile = () => {
       <Col md={5}>
         <Row>
           <TabSystem md={6} className='block' />
-          <Row className='mt-3 block justify-content-center'>
+          <Row className='mt-3 mb-5 pr-5 block justify-content-center' style={{ height: '800px' }}>
             <Switch>
               <Route path={'/profile/contactInfo'} component={() => <ContactInfo />} />
               <Route path={'/profile/profileInfo'} component={() => <ProfileInfo />} />
