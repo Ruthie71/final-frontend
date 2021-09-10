@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import PhotoUploader from './PhotoUploader';
 import KeyWords from './KeyWords';
 import { Formik, Form as FormikForm } from 'formik';
@@ -29,6 +30,7 @@ const ProfileInfo = () => {
   const [userSkills, setUserSkills] = useState(personalskills);
   const [AICall, setAICall] = useState(false);
   const [AIPrompt, setAIPrompt] = useState();
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -52,6 +54,7 @@ const ProfileInfo = () => {
   };
 
   if (AICall) {
+    setLoader(true);
     if (!firstname || !lastname || !education[0] || !techskills || !details || !work[0]) {
       const message = 'Please fill up the name, education, work experience and techskills';
       setAIPrompt(message);
@@ -68,6 +71,7 @@ const ProfileInfo = () => {
       getAI();
       setAICall(false);
     }
+    setTimeout(() => setLoader(false), 2000);
   }
 
   return (
@@ -155,6 +159,7 @@ const ProfileInfo = () => {
               </Col>
             </Row>
             <Row className='mb-2'>
+            
               {AIPrompt === 'Please fill up the name, education, work experience and techskills' ? (
                 <div className="mb-2">{AIPrompt}</div>
               ) : AIPrompt ? (
@@ -165,11 +170,30 @@ const ProfileInfo = () => {
                   </Button>
                 </Fragment>
               ) : (
-                <div className="mb-2">Please fill up you profile and then call for the AI prompt</div>
+                <>
+                </>
               )}
+              {loader ? (
+                <Row className='justify-content-center'>
+                  <Spinner animation='border' role='status' variant='primary'>
+                    <span className='visually-hidden'>Loading...</span>
+                  </Spinner>
+                </Row>
+              ) : (
+                <>
+                </>
+              )}
+              {!loader ? (<>
+              <div style={{ color: '#554e57' }} className='mb-2'>
+                                      Please fill up you profile and then call for the AI prompt
+                                    </div>
+
               <Button variant='primary' className='lightbtn mb-0 mx-2 px-0' onClick={GetPrompt}>
-                Prompt AI
-              </Button>
+                    Prompt AI
+                  </Button> </> ): (
+                <>
+                </>
+              )}
             </Row>
 
             <Button variant='primary' type='submit' className="mt-3 mb-5">
