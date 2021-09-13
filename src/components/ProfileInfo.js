@@ -34,7 +34,7 @@ const ProfileInfo = () => {
     useEffect(() => {
         const getData = async () => {
             const { data } = await axios.get(
-                `${REACT_APP_CV_API}/personalskills`,
+                `${process.env.REACT_APP_CV_API}/personalskills`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -80,7 +80,7 @@ const ProfileInfo = () => {
             };
             let getAI = async () => {
                 const { data } = await axios.post(
-                    `${REACT_APP_CV_API}/ai/summerize`,
+                    `${process.env.REACT_APP_CV_API}/ai/summerize`,
                     promptData,
                     {
                         headers: { Authorization: `Bearer ${token}` },

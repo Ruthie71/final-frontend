@@ -25,7 +25,7 @@ export const Education = () => {
     useEffect(() => {
         const getData = async () => {
             const { data } = await axios.get(
-                "http://localhost:5000/languages",
+                `${process.env.REACT_APP_CV_API}/languages`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -33,7 +33,7 @@ export const Education = () => {
             setDBLanguage(data);
         };
         getData();
-        return () => setDBLanguage()
+        return () => setDBLanguage();
     }, [token]);
 
     return (
@@ -73,11 +73,23 @@ export const Education = () => {
                                         Add education experience
                                     </Button>
 
-                                    <Accordion defaultActiveKey="0" className="textcolor">
+                                    <Accordion
+                                        defaultActiveKey="0"
+                                        className="textcolor"
+                                    >
                                         {values.education.map((ed, index) => (
                                             <div className="row" key={index}>
-                                                <Accordion.Item eventKey={index} className="mx-2">
-                                                    <Accordion.Header >{ed.coursename ? `${ed.coursename} @ ${ed.academicinstitution}` : `New education entry #${index+1}`}</Accordion.Header>
+                                                <Accordion.Item
+                                                    eventKey={index}
+                                                    className="mx-2"
+                                                >
+                                                    <Accordion.Header>
+                                                        {ed.coursename
+                                                            ? `${ed.coursename} @ ${ed.academicinstitution}`
+                                                            : `New education entry #${
+                                                                  index + 1
+                                                              }`}
+                                                    </Accordion.Header>
                                                     <Accordion.Body>
                                                         <Row>
                                                             <Form.Group
@@ -219,20 +231,15 @@ export const Education = () => {
                                                             </Form.Group>
                                                         </Row>
 
-                                                            <Button
-                                                                type="button"
-                                                                className="secondary lightbtn"
-                                                                onClick={() =>
-                                                                    remove(
-                                                                        index
-                                                                    )
-                                                                }
-                                                            >
-                                                                Delete
-                                                            </Button>
-
-                                                            
-
+                                                        <Button
+                                                            type="button"
+                                                            className="secondary lightbtn"
+                                                            onClick={() =>
+                                                                remove(index)
+                                                            }
+                                                        >
+                                                            Delete
+                                                        </Button>
                                                     </Accordion.Body>
                                                 </Accordion.Item>
                                             </div>
@@ -241,7 +248,9 @@ export const Education = () => {
                                 </div>
                             )}
                         </FieldArray>
-                        <Button type="submit" className="mt-3 mb-5">Submit</Button>
+                        <Button type="submit" className="mt-3 mb-5">
+                            Submit
+                        </Button>
                     </Form>
                 )}
             </Formik>

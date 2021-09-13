@@ -28,9 +28,12 @@ export const Work = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const { data } = await axios.get(`${REACT_APP_CV_API}/techskills`, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_CV_API}/techskills`,
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
             setDBTechSkills(data);
         };
         getData();
@@ -57,7 +60,7 @@ export const Work = () => {
                 let promptData = { values };
                 let getAI = async () => {
                     const { data } = await axios.post(
-                        `${REACT_APP_CV_API}/ai/completion`,
+                        `${process.env.REACT_APP_CV_API}/ai/completion`,
                         promptData,
                         {
                             headers: { Authorization: `Bearer ${token}` },

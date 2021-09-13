@@ -7,7 +7,7 @@ const AuthState = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [token, setToken] = useState(localStorage.getItem("token"));
 
     useEffect(() => token && setIsAuthenticated(true), [token]);
 
@@ -21,9 +21,12 @@ const AuthState = ({ children }) => {
             setLoading(true);
             const {
                 data: { token },
-            } = await axios.post(`http://localhost:5000/user/signup`, data);
-            localStorage.setItem("token", token)
-            setToken(token)
+            } = await axios.post(
+                `${process.env.REACT_APP_CV_API}/user/signup`,
+                data
+            );
+            localStorage.setItem("token", token);
+            setToken(token);
             setIsAuthenticated(true);
             setLoading(false);
         } catch (error) {
@@ -44,7 +47,10 @@ const AuthState = ({ children }) => {
             setLoading(true);
             const {
                 data: { token },
-            } = await axios.post(`http://localhost:5000/user/signin`, data);
+            } = await axios.post(
+                `${process.env.REACT_APP_CV_API}/user/signin`,
+                data
+            );
             localStorage.setItem("token", token);
             setToken(token);
             setIsAuthenticated(true);
@@ -64,13 +70,21 @@ const AuthState = ({ children }) => {
 
     const signOut = () => {
         localStorage.removeItem("token");
-        setToken(null)
+        setToken(null);
         setIsAuthenticated(false);
     };
 
     return (
         <AuthContext.Provider
-            value={{ loading, isAuthenticated, error, signUp, signIn, signOut, token }}
+            value={{
+                loading,
+                isAuthenticated,
+                error,
+                signUp,
+                signIn,
+                signOut,
+                token,
+            }}
         >
             {children}
         </AuthContext.Provider>
