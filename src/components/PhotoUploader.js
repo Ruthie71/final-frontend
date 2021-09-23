@@ -25,7 +25,7 @@ const PhotoUploader = () => {
         const formData = new FormData();
         formData.append('image', e.target.files[0]);
         try {
-          const data = await axios.post(`${process.env.REACT_APP_BLOG_API}image-upload`, formData, {
+          const data = await axios.post(`${process.env.REACT_APP_BLOG_API}/image-upload`, formData, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
           });
           setValue('photo', data.data);
