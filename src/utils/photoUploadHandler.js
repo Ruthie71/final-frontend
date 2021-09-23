@@ -12,7 +12,7 @@ const imageUploadHandler = async (blobInfo, success, failure, progress) => {
         const {
             data: { location },
         } = await axios.post(
-            `${process.env.REACT_APP_BLOG_API}/image-upload`,
+            `${process.env.REACT_APP_CV_API}/image-upload`,
             formData,
             axiosConfig
         );
