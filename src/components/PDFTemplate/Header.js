@@ -64,7 +64,14 @@ const Header = ({
     return (
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image src={photo} style={styles.image} />
+                <Image
+                    src={
+                        photo !== ""
+                            ? photo
+                            : "sga-volleyball.de/wp-content/uploads/2014/09/dummy-user.jpg"
+                    }
+                    style={styles.image}
+                />
             </View>
             <View style={styles.detailColumn}>
                 <Text style={styles.name}>
