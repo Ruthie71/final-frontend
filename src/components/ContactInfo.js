@@ -3,20 +3,37 @@ import Button from "react-bootstrap/Button";
 import { Fragment, useContext } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Formik, Form as FormikForm } from 'formik';
-import { FormikContext } from '../context/FormikState';
+import { Formik, Form as FormikForm } from "formik";
+import { FormikContext } from "../context/FormikState";
 
 const ContactInfo = () => {
-    const { firstname, lastname, address, contact, details, updateProfile } = useContext(FormikContext);
-
+    const { firstname, lastname, address, contact, details, updateProfile } =
+        useContext(FormikContext);
 
     return (
         <Fragment>
             <Formik
-                initialValues={{ firstname, lastname, address, contact, details  }}
+                initialValues={{
+                    firstname,
+                    lastname,
+                    address,
+                    contact,
+                    details,
+                }}
                 onSubmit={(values) => updateProfile(values)}
             >
-                {({ values: { firstname, lastname, address: { city, country, housenr, street, zipcode }, contact: { email, phone, git, linkedin }, details: { jobtitle, dateofbirth } }, handleChange, handleSubmit, handleBlur }) => (
+                {({
+                    values: {
+                        firstname,
+                        lastname,
+                        address: { city, country, housenr, street, zipcode },
+                        contact: { email, phone, git, linkedin },
+                        details: { jobtitle, dateofbirth },
+                    },
+                    handleChange,
+                    handleSubmit,
+                    handleBlur,
+                }) => (
                     <Form as={FormikForm}>
                         <Row>
                             <Col>
@@ -79,10 +96,9 @@ const ContactInfo = () => {
                                     />
                                 </Form.Group>
                             </Col>
-
                         </Row>
                         <Row>
-                        <Col>
+                            <Col>
                                 <Form.Group
                                     className="mb-3"
                                     controlId="dateofbirth"
@@ -93,16 +109,13 @@ const ContactInfo = () => {
                                         placeholder="Enter Date of Birth"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={details.dateofbirth}
+                                        value={dateofbirth}
                                         name="details.dateofbirth"
                                     />
                                 </Form.Group>
                             </Col>
                             <Col>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="street"
-                                >
+                                <Form.Group className="mb-3" controlId="street">
                                     <Form.Label>Street Name</Form.Label>
                                     <Form.Control
                                         type="streetName"
@@ -114,7 +127,6 @@ const ContactInfo = () => {
                                     />
                                 </Form.Group>
                             </Col>
-                            
 
                             <Form.Group
                                 className="mb-3"
@@ -122,7 +134,7 @@ const ContactInfo = () => {
                             ></Form.Group>
                         </Row>
                         <Row>
-                        <Col>
+                            <Col>
                                 <Form.Group
                                     className="mb-3"
                                     controlId="housenr"
@@ -154,7 +166,6 @@ const ContactInfo = () => {
                                     />
                                 </Form.Group>
                             </Col>
-                            
 
                             <Form.Group
                                 className="mb-3"
@@ -176,18 +187,21 @@ const ContactInfo = () => {
                                 </Form.Group>
                             </Col>
                             <Col>
-                        <Form.Group className="mb-3" controlId="country">
-                            <Form.Label>Country</Form.Label>
-                            <Form.Control
-                                type="country"
-                                placeholder="Enter Country"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={country}
-                                name="address.country"
-                            />
-                        </Form.Group>
-                        </Col>
+                                <Form.Group
+                                    className="mb-3"
+                                    controlId="country"
+                                >
+                                    <Form.Label>Country</Form.Label>
+                                    <Form.Control
+                                        type="country"
+                                        placeholder="Enter Country"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={country}
+                                        name="address.country"
+                                    />
+                                </Form.Group>
+                            </Col>
                         </Row>
                         <Button variant="primary" type="submit">
                             Submit
